@@ -4,13 +4,19 @@ import numpy as np
 import cPickle
 import scipy.io
 
-
+#### CURRENT EPIC FEATURES ####
 VOCAB_PATH = '../../../data/epic/vocabulary_epic.txt'
 TRAIN_CAPTION_PATH = '../../../data/epic/video_description_train.txt'
 VALID_CAPTION_PATH = '../../../data/epic/video_description_val.txt'
 DATA_P_PATH = '../../../data/epic/data_epic.p'
 REFERENCES_PATH = '../../../data/epic/references_epic.p'
 
+#### CURRENT BREAKFAST FEATURES ####
+VOCAB_PATH = '../../../data/breakfast_current/vocabulary_breakfast_current.txt'
+TRAIN_CAPTION_PATH =  '../../../data/breakfast_current/current_s1_train_caption_list'
+VALID_CAPTION_PATH =  '../../../data/breakfast_current/current_s1_val_caption_list'
+DATA_P_PATH = '../../../data/breakfast_current/data_breakfast_current.p'
+REFERENCES_PATH = '../../../data/breakfast_current/references_breakfast_current.p'
 
 
 if __name__ == "__main__":

@@ -1,10 +1,14 @@
 import numpy as np
 import cPickle
 
+#### CURRENT EPIC FEATURES ####
 DATA_P_PATH = '../../../data/epic/data_epic.p'
 CORPUS_P_PATH = '../../../data/epic/corpus_epic.p'
 GoogleNews_PATH = '../../../data/GoogleNews-vectors-negative300.bin'
 
+#### CURRENT BREAKFAST FEATURES ####
+DATA_P_PATH = '../../../data/breakfast_current/data_breakfast_current.p'
+CORPUS_P_PATH = '../../../data/breakfast_current/corpus_breakfast_current.p'
 
 
 def get_W(w2v, word2idx, k=300):

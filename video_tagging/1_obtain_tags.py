@@ -2,9 +2,9 @@ import numpy as np
 import cPickle
 
 
-CORPUS_P_PATH = '../../data/epic/corpus_epic.p'
-REFERENCES_PATH = '../../data/epic/references_epic.p'
-GT_TAG_FEATS_PATH = '../../data/epic/gt_tag_feats_epic.p'
+CORPUS_P_PATH = '../../../data/epic/corpus_epic.p'
+REFERENCES_PATH = '../../../data/epic/references_epic.p'
+GT_TAG_FEATS_PATH = '../../../data/epic/gt_tag_feats_epic.p'
 NUM_TAGS = 1195
 
 if __name__ == "__main__":

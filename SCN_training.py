@@ -6,6 +6,7 @@ Developed by Zhe Gan, zg27@duke.edu, Sep., 2016
 import time
 import logging
 import cPickle
+import h5py
 
 import numpy as np
 import scipy.io
@@ -16,9 +17,27 @@ from model_scn_v2.video_cap import init_params, init_tparams, build_model
 from model_scn_v2.optimizers import Adam
 from model_scn_v2.utils import get_minibatches_idx, zipp, unzip
 
+
+HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_noun.h5"
+HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_noun.h5"
+
+HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_verb.h5"
+HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_verb.h5"
+TAG_FEATS_PRE_PATH = '../../data/epic/tag_feats_pred_epic.mat'
+CORPUS_P_PATH = "../../data/epic/corpus_epic.p"
+SAVE_TO_PATH = 'epic_result_scn.npz'
 # Set the random number generators' seeds for consistency
 SEED = 123  
 np.random.seed(SEED)
+
+def load_hd5(hd5_name, keyword):
+    #for epic datasets, keyword is either noun or verb
+    with h5py.File(hd5_name,"r") as f:
+        for key in f.keys():
+           print(key)
+        grid = f[keyword][()] #Convert to numpy
+    feats= np.squeeze(grid, axis=1)
+    return feats
 
 def prepare_data(seqs):
     
@@ -32,7 +51,6 @@ def prepare_data(seqs):
     for idx, s in enumerate(seqs):
         x[:lengths[idx], idx] = s
         x_mask[:lengths[idx], idx] = 1.
-
     return x, x_mask
 
 def calu_negll(f_cost, prepare_data, data, img_feats, tag_feats, iterator):
@@ -55,9 +73,9 @@ def calu_negll(f_cost, prepare_data, data, img_feats, tag_feats, iterator):
 """ Training the model. """
 
 def train_model(train, valid, test, img_feats, tag_feats, W, n_words=7164, n_x=300, n_h=512,
-    n_f=512, max_epochs=20, lrate=0.0002, batch_size=64, valid_batch_size=64, 
+    n_f=512, max_epochs=20, lrate=0.0002, batch_size=640, valid_batch_size=64, 
     dropout_val=0.5, dispFreq=10, validFreq=200, saveFreq=1000, 
-    saveto = 'youtube_result_scn.npz'):
+    saveto = SAVE_TO_PATH):
         
     """ n_words : vocabulary size
         n_x : word embedding dimension
@@ -90,7 +108,6 @@ def train_model(train, valid, test, img_feats, tag_feats, W, n_words=7164, n_x=3
     options['n_z'] = img_feats.shape[1]
     options['n_y'] = tag_feats.shape[1]
     options['SEED'] = SEED
-   
     logger.info('Model options {}'.format(options))
     logger.info('{} train examples'.format(len(train[0])))
     logger.info('{} valid examples'.format(len(valid[0])))
@@ -131,9 +148,7 @@ def train_model(train, valid, test, img_feats, tag_feats, W, n_words=7164, n_x=3
                 x = [train[0][t]for t in train_index]
                 y = np.array([tag_feats[train[1][t]]for t in train_index])
                 z = np.array([img_feats[train[1][t]]for t in train_index])
-                
                 x, mask = prepare_data(x)
-
                 cost = f_grad_shared(x, mask,y,z)
                 f_update(lrate)
 
@@ -179,6 +194,7 @@ def train_model(train, valid, test, img_feats, tag_feats, W, n_words=7164, n_x=3
                                 break
 
             if estop:
+                print ("P"*100)
                 break
 
     except KeyboardInterrupt:
@@ -221,24 +237,44 @@ if __name__ == '__main__':
     ch.setFormatter(formatter)
     logger.addHandler(fh)
     
-    x = cPickle.load(open("./data/youtube2text/corpus.p","rb"))
+    x = cPickle.load(open(CORPUS_P_PATH,"rb"))
     train, val, test = x[0], x[1], x[2]
     wordtoix, ixtoword = x[3], x[4]
     W = x[5]
     del x
     n_words = len(ixtoword)
     
-    data = scipy.io.loadmat('./data/youtube2text/c3d_feats.mat')
-    c3d_img_feats = data['feats'].astype(theano.config.floatX)
-    
-    data = scipy.io.loadmat('./data/youtube2text/resnet_feats.mat')
-    resnet_img_feats = data['feature'].T.astype(theano.config.floatX)
-    
-    img_feats = np.concatenate((c3d_img_feats,resnet_img_feats),axis=1)
-    
-    data = scipy.io.loadmat('./tag_feats.mat')
-    tag_feats = data['feats'].astype(theano.config.floatX)
+    #data = scipy.io.loadmat('./data/youtube2text/c3d_feats.mat')
+    #c3d_img_feats = data['feats'].astype(theano.config.floatX)
 
+    #data = scipy.io.loadmat('./data/youtube2text/resnet_feats.mat')
+    #resnet_img_feats = data['feature'].T.astype(theano.config.floatX)
+    
+#    hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/sample/features_epic/epic_features_epic_train.h5"
+#    with h5py.File(hdf5_name,"r") as f:
+#        for key in f.keys():
+#           print(key)
+#
+#        grid = f["features"][()] #Convert to numpy
+#    #print(grid[0,:])
+#    grid2= np.squeeze(grid, axis=1) 
+    #img_feats = np.concatenate((c3d_img_feats,resnet_img_feats),axis=1)
+#    img_feats = grid2
+    
+    train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
+    train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
+    #img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    img_feats = train_verb_feats
+
+    valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
+    valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
+    #img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    img_feats_valid = valid_noun_feats
+
+
+
+    data = scipy.io.loadmat(TAG_FEATS_PRE_PATH)
+    tag_feats = data['feats'].astype(theano.config.floatX)
     [val_negll, te_negll] = train_model(train, val, test, img_feats, tag_feats, W,
         n_words=n_words)
         

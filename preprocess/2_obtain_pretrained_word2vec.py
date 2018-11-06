@@ -1,9 +1,9 @@
 import numpy as np
 import cPickle
 
-DATA_P_PATH = '../../data/epic/data_epic.p'
-CORPUS_P_PATH = '../../data/epic/corpus_epic.p'
-GoogleNews_PATH = '../../data/GoogleNews-vectors-negative300.bin'
+DATA_P_PATH = '../../../data/epic/data_epic.p'
+CORPUS_P_PATH = '../../../data/epic/corpus_epic.p'
+GoogleNews_PATH = '../../../data/GoogleNews-vectors-negative300.bin'
 
 
 

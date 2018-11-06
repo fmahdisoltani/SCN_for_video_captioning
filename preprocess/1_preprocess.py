@@ -5,11 +5,11 @@ import cPickle
 import scipy.io
 
 
-VOCAB_PATH = '../../data/epic/vocabulary_epic.txt'
-TRAIN_CAPTION_PATH = '../../data/epic/video_description_train.txt'
-VALID_CAPTION_PATH = '../../data/epic/video_description_val.txt'
-DATA_P_PATH = '../../data/epic/data_epic.p'
-REFERENCES_PATH = '../../data/epic/references_epic.p'
+VOCAB_PATH = '../../../data/epic/vocabulary_epic.txt'
+TRAIN_CAPTION_PATH = '../../../data/epic/video_description_train.txt'
+VALID_CAPTION_PATH = '../../../data/epic/video_description_val.txt'
+DATA_P_PATH = '../../../data/epic/data_epic.p'
+REFERENCES_PATH = '../../../data/epic/references_epic.p'
 
 
 

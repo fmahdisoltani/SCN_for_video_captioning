@@ -23,9 +23,9 @@ HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/v
 
 HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_verb.h5"
 HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_verb.h5"
-GT_TAG_FEATS = "../../data/epic/gt_tag_feats_epic.p"
-SAVING_PATH = '../../data/epic/epic_tagging_learned_params.npz'
-TAG_FEATS_MAT = "../../data/epic/tag_feats_pred_epic_verb.mat"
+GT_TAG_FEATS = "../../../data/epic/gt_tag_feats_epic.p"
+SAVING_PATH = '../../../data/epic/epic_tagging_learned_params.npz'
+TAG_FEATS_MAT = "../../../data/epic/tag_feats_pred_epic.mat"
 # Set the random number generators' seeds for consistency
 SEED = 123  
 np.random.seed(SEED)
@@ -70,13 +70,11 @@ if __name__ == '__main__':
     
     train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
     train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
-    #img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    img_feats = train_verb_feats
+    img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
 
     valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
     valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
-    #img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    img_feats_valid = valid_noun_feats
+    img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
 
 
     x = cPickle.load(open(GT_TAG_FEATS,"rb"))

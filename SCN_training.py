@@ -7,25 +7,34 @@ import time
 import logging
 import cPickle
 import h5py
-
+import theano.tensor as tensor
 import numpy as np
 import scipy.io
 import theano
-import theano.tensor as tensor
+
 
 from model_scn_v2.video_cap import init_params, init_tparams, build_model
 from model_scn_v2.optimizers import Adam
 from model_scn_v2.utils import get_minibatches_idx, zipp, unzip
 
+#### CURRENT EPIC FEATURES ####
+#HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_noun.h5"
+#HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_noun.h5"
 
-HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_noun.h5"
-HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_noun.h5"
+#HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_verb.h5"
+#HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_verb.h5"
+#TAG_FEATS_PRE_PATH = '../../data/epic/tag_feats_pred_epic.mat'
+#CORPUS_P_PATH = "../../data/epic/corpus_epic.p"
+#SAVE_TO_PATH = 'epic_result_scn.npz'
 
-HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_verb.h5"
-HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_verb.h5"
-TAG_FEATS_PRE_PATH = '../../data/epic/tag_feats_pred_epic.mat'
-CORPUS_P_PATH = "../../data/epic/corpus_epic.p"
-SAVE_TO_PATH = 'epic_result_scn.npz'
+#### CURRENT BREAKFAST FEATURES ####
+HD5_TRAIN = '../../data/breakfast_current/current_train_breakfast.h5'
+HD5_VALID = '../../data/breakfast_current/current_validation_breakfast.h5'
+TAG_FEATS_PRE_PATH = '../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
+CORPUS_P_PATH = "../../data/breakfast_current/corpus_breakfast_current.p"
+SAVE_TO_PATH = 'breakfast_current_result_scn.npz'
+
+
 # Set the random number generators' seeds for consistency
 SEED = 123  
 np.random.seed(SEED)
@@ -36,7 +45,8 @@ def load_hd5(hd5_name, keyword):
         for key in f.keys():
            print(key)
         grid = f[keyword][()] #Convert to numpy
-    feats= np.squeeze(grid, axis=1)
+ #    feats= np.squeeze(grid, axis=1)
+    feats = grid
     return feats
 
 def prepare_data(seqs):
@@ -72,7 +82,7 @@ def calu_negll(f_cost, prepare_data, data, img_feats, tag_feats, iterator):
 
 """ Training the model. """
 
-def train_model(train, valid, test, img_feats, tag_feats, W, n_words=7164, n_x=300, n_h=512,
+def train_model(train, valid, test, img_feats, tag_feats, W, n_words=48, n_x=300, n_h=512,
     n_f=512, max_epochs=20, lrate=0.0002, batch_size=640, valid_batch_size=64, 
     dropout_val=0.5, dispFreq=10, validFreq=200, saveFreq=1000, 
     saveto = SAVE_TO_PATH):
@@ -261,17 +271,18 @@ if __name__ == '__main__':
     #img_feats = np.concatenate((c3d_img_feats,resnet_img_feats),axis=1)
 #    img_feats = grid2
     
-    train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
-    train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
-    #img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    img_feats = train_verb_feats
+    #train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
+    #train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
+    ##img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    #img_feats = train_verb_feats
 
-    valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
-    valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
-    #img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    img_feats_valid = valid_noun_feats
+    #valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
+    #valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
+    ##img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    #img_feats_valid = valid_noun_feats
 
-
+    img_feats = load_hd5(HD5_TRAIN, "all")
+    img_feats_valid = load_hd5(HD5_VALID, "all")
 
     data = scipy.io.loadmat(TAG_FEATS_PRE_PATH)
     tag_feats = data['feats'].astype(theano.config.floatX)

@@ -3,13 +3,41 @@ Semantic Compositional Network https://arxiv.org/pdf/1611.08002.pdf
 Developed by Zhe Gan, zg27@duke.edu, Sep., 2016
 Optimized by Xiaodong He, xiaohe@microsoft.com, Jan. 2017
 '''
-
+import h5py
 import datetime
 import cPickle
 import scipy.io
 import numpy as np
 from collections import OrderedDict
 
+VOCAB_PATH = '../../data/breakfast_current/vocabulary_breakfast_current.txt'
+TRAIN_CAPTION_PATH =  '../../data/breakfast_current/current_s1_train_caption_list'
+VALID_CAPTION_PATH =  '../../data/breakfast_current/current_s1_val_caption_list'
+DATA_P_PATH = '../../data/breakfast_current/data_breakfast_current.p'
+REFERENCES_PATH = '../../data/breakfast_current/references_breakfast_current.p'
+CORPUS_P_PATH = '../../data/breakfast_current/corpus_breakfast_current.p'
+
+
+HD5_TRAIN = '../../data/breakfast_current/current_train_breakfast.h5'
+HD5_VALID = '../../data/breakfast_current/current_validation_breakfast.h5'
+
+TAG_FEATS_PRED = '../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
+
+RESULT_PATH = './breakfast_current_result_scn_'
+NBEST = "breakfast_current_nbest.p"
+TEST_RESULT = './breakfast_current_scn_test.txt'
+
+
+def load_hd5(hd5_name, keyword):
+    #for epic datasets, keyword is either noun or verb
+    with h5py.File(hd5_name,"r") as f:
+        for key in f.keys():
+           print(key)
+        grid = f[keyword][()] #Convert to numpy
+    #if epic then uncomment the following line
+#    feats= np.squeeze(grid, axis=1)
+    feats=grid
+    return feats
 def load_params(path, param_list):
     
     print 'loading learned params...'
@@ -50,6 +78,7 @@ def predict(z, params_set,beam_size, max_step, prefix='encoder_lstm'):
             tmp1_i = np.dot((np.dot(x_prev, params[_p(prefix, 'Wa_i')]) * params[_p(prefix, 'yWb_i')]), params[_p(prefix, 'Wc_i')].T)
             tmp1_f = np.dot((np.dot(x_prev, params[_p(prefix, 'Wa_f')]) * params[_p(prefix, 'yWb_f')]), params[_p(prefix, 'Wc_f')].T)
             tmp1_o = np.dot((np.dot(x_prev, params[_p(prefix, 'Wa_o')]) * params[_p(prefix, 'yWb_o')]), params[_p(prefix, 'Wc_o')].T)
+
             tmp1_c = np.dot((np.dot(x_prev, params[_p(prefix, 'Wa_c')]) * params[_p(prefix, 'yWb_c')]), params[_p(prefix, 'Wc_c')].T)
             if x_prev_id >= 0: #not for -1 which is sent start
                 params[_p(prefix, 'cacheX')][x_prev_id] = ((tmp1_i, tmp1_f, tmp1_o, tmp1_c))
@@ -174,7 +203,7 @@ def generate(z_emb, y_emb, params_set, beam_size, max_step):
         params[_p(prefix, 'cacheH')] = OrderedDict()
         params_set_ext.append(params)
     del params_set
-     
+    
     print 'start decoding @ ',
     print datetime.datetime.now().time()
     for i in xrange(len(z_emb)):
@@ -218,31 +247,96 @@ if __name__ == '__main__':
     
     print "loading data..."
     
-    x = cPickle.load(open("./data/youtube2text/corpus.p","rb"))
+    x = cPickle.load(open(CORPUS_P_PATH,"rb"))
     wordtoix, ixtoword = x[3], x[4]
     del x
     n_words = len(ixtoword)
     
-    data = scipy.io.loadmat('./data/youtube2text/c3d_feats.mat')
-    c3d_img_feats = data['feats']
+    #data = scipy.io.loadmat('./data/youtube2text/c3d_feats.mat')
+    #c3d_img_feats = data['feats']
     
-    data = scipy.io.loadmat('./data/youtube2text/resnet_feats.mat')
-    resnet_img_feats = data['feature'].T
+    #data = scipy.io.loadmat('./data/youtube2text/resnet_feats.mat')
+    #resnet_img_feats = data['feature'].T
     
-    img_feats = np.concatenate((c3d_img_feats,resnet_img_feats),axis=1)
-    del c3d_img_feats, resnet_img_feats
+    #img_feats = np.concatenate((c3d_img_feats,resnet_img_feats),axis=1)
+    #del c3d_img_feats, resnet_img_feats
+    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/sample/features_epic/epic_features_epic_train.h5"
+
+    #with h5py.File(hdf5_name,"r") as f:
+    #    for key in f.keys():
+    #       print(key)
+    #    grid = f["features"][()] #Convert to numpy
+    #print(grid[0,:])
+
+    #grid2= np.squeeze(grid, axis=1)
+    #img_feats = np.concatenate((c3d_img_feats,resnet_img_feats),axis=1)
+    #train_feats = grid2
+
+    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/sample/features_epic/epic_features_epic_validation.h5"
+
+    #with h5py.File(hdf5_name,"r") as f:
+    #    for key in f.keys():
+    #       print(key)
+
+    #    grid = f["features"][()] #Convert to numpy
+    #print(grid[0,:])
+
+    #grid2= np.squeeze(grid, axis=1)
+    #img_feats = np.concatenate((c3d_img_feats,resnet_img_feats),axis=1)
+    #val_feats = grid2
+
+
+    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/epic/features_epic/train_eco_noun.h5"
+    #with h5py.File(hdf5_name,"r") as f:
+    #    for key in f.keys():
+    #       print(key)
+    #    grid = f["noun"][()] #Convert to numpy
+    #train_noun_feats= np.squeeze(grid, axis=1)
+
+
+    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/epic/features_epic/train_eco_verb.h5"
+    #with h5py.File(hdf5_name,"r") as f:
+    #    for key in f.keys():
+    #       print(key)
+
+    #    grid = f["verb"][()] #Convert to numpy
+    #train_verb_feats = np.squeeze(grid, axis=1)
+    #img_feats_train = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    #img_feats_train = train_verb_feats
+
+    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/epic/features_epic/val_eco_noun.h5"
+    #with h5py.File(hdf5_name,"r") as f:
+   
+    #       print(key)
+    #    grid = f["noun"][()] #Convert to numpy
+    #valid_noun_feats= np.squeeze(grid, axis=1)
+
+
+    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/epic/features_epic/val_eco_verb.h5"
+    #with h5py.File(hdf5_name,"r") as f:
+    #    for key in f.keys():
+    #       print(key)
+
+     #   grid = f["verb"][()] #Convert to numpy
+    #valid_verb_feats = np.squeeze(grid, axis=1)
+    #img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    #img_feats_valid = valid_verb_feats
+    #  img_feats = np.concatenate((img_feats_train, img_feats_valid), axis=0)
+    #img_feats = np.concatenate((img_feats_train, img_feats_valid), axis=0)
     
-    data = scipy.io.loadmat('./data/youtube2text/tag_feats.mat')
+    img_feats = load_hd5(HD5_TRAIN, "all")
+    img_feats_valid = load_hd5(HD5_VALID, "all")
+
+    data = scipy.io.loadmat(TAG_FEATS_PRED)
     tag_feats = data['feats']
-    
-    z = img_feats[1300:]
-    y = tag_feats[1300:]
+    z = img_feats_valid #img_feats[1300:]
+    #y = tag_feats[24699:]
+    y = tag_feats[10872:]
     del img_feats, tag_feats
     
-    path = './pretrained_model/youtube_result_scn_'
-    param_list = [0,1,2] # define how many ensembles to use
+    path = RESULT_PATH 
+    param_list = [0] # define how many ensembles to use
     params_set = load_params(path, param_list)
-    
     predset = generate(z, y, params_set, beam_size=5, max_step=20)
     
     N_best_list = []
@@ -257,7 +351,7 @@ if __name__ == '__main__':
             tmp.append((sen[0],sen[1],rev))
         N_best_list.append(tmp)
     
-    cPickle.dump(N_best_list, open("youtube2text_nbest.p", "wb"))
+    cPickle.dump(N_best_list, open(NBEST, "wb"))
         
     predtext = []
     for sent in predset:
@@ -270,7 +364,7 @@ if __name__ == '__main__':
         predtext.append(rev)
     
     print 'write generated captions into a text file...'
-    open('./youtube2text_scn_test.txt', 'w').write('\n'.join([cap[0] for cap in predtext]))
+    open(TEST_RESULT, 'w').write('\n'.join([cap[0] for cap in predtext]))
     
     
         

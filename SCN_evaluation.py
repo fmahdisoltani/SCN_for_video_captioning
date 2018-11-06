@@ -14,6 +14,10 @@ from pycocoevalcap.meteor.meteor import Meteor
 
 import cPickle
 
+
+REFERENCES_PATH = "./data/breakfast_current/references_breakfast_current.p"
+T_RESULTS = './breakfast_current_scn_test.txt'
+
 def score(ref, hypo):
     """
     ref, dictionary of reference sentences (id, sentence)
@@ -39,10 +43,10 @@ def score(ref, hypo):
 if __name__ == '__main__':
     
     # this is the generated captions
-    hypo = {idx: [lines.strip()] for (idx, lines) in enumerate(open('./youtube2text_scn_test.txt', 'rb') )}  
+    hypo = {idx: [lines.strip()] for (idx, lines) in enumerate(open(TEST_RESULTS , 'rb') )}  
     
     # this is the ground truth captions
-    x = cPickle.load(open("./data/youtube2text/references.p","rb"))
+    x = cPickle.load(open(REFERENCES_PATH,"rb"))
     refs = x[2]
     del x
     

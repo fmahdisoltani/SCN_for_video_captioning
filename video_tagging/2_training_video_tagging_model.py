@@ -17,15 +17,24 @@ from model_classifier.optimizers import Adam
 from model_classifier.utils import get_minibatches_idx, zipp, unzip
 
 
+#### CURRENT EPIC FEATURES ####
+#HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_noun.h5"
+#HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_noun.h5"
 
-HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_noun.h5"
-HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_noun.h5"
+#HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_verb.h5"
+#HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_verb.h5"
+#GT_TAG_FEATS = "../../../data/epic/gt_tag_feats_epic.p"
+#SAVING_PATH = '../../../data/epic/epic_tagging_learned_params.npz'
+#TAG_FEATS_MAT = "../../../data/epic/tag_feats_pred_epic.mat"
 
-HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_verb.h5"
-HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_verb.h5"
-GT_TAG_FEATS = "../../../data/epic/gt_tag_feats_epic.p"
-SAVING_PATH = '../../../data/epic/epic_tagging_learned_params.npz'
-TAG_FEATS_MAT = "../../../data/epic/tag_feats_pred_epic.mat"
+#### CURRENT BREAKFAST FEATURES ####
+HD5_TRAIN = '../../../data/breakfast_current/current_train_breakfast.h5'
+HD5_VALID = '../../../data/breakfast_current/current_validation_breakfast.h5'
+GT_TAG_FEATS = '../../../data/breakfast_current/gt_tag_feats_breakfast_current.p'
+SAVING_PATH =  '../../../data/breakfast_current/breakfast_current_tagging_learned_params.npz'
+TAG_FEATS_MAT =  '../../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
+
+
 # Set the random number generators' seeds for consistency
 SEED = 123  
 np.random.seed(SEED)
@@ -37,7 +46,9 @@ def load_hd5(hd5_name, keyword):
         for key in f.keys():
            print(key)
         grid = f[keyword][()] #Convert to numpy
-    feats= np.squeeze(grid, axis=1)
+    #if epic then uncomment the following line
+#    feats= np.squeeze(grid, axis=1)
+    feats=grid
     return feats
 
 def calu_negll(f_cost, data_x, data_y, iterator):
@@ -68,15 +79,20 @@ if __name__ == '__main__':
     ch.setFormatter(formatter)
     logger.addHandler(fh)
     
-    train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
-    train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
-    img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
 
-    valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
-    valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
-    img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    #### if using epic, uncomment the following lines ####
+    #train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
+    #train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
+    #img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+
+    #valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
+    #valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
+    #img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    ######################################################
 
 
+    img_feats = load_hd5(HD5_TRAIN,"all")
+    img_feats_valid = load_hd5(HD5_VALID, "all")
     x = cPickle.load(open(GT_TAG_FEATS,"rb"))
     train_tag = x[0].astype(theano.config.floatX)
     valid_tag = x[1].astype(theano.config.floatX)

@@ -3,16 +3,52 @@ import cPickle
 
 
 #### CURRENT EPIC FEATURES ####
-#CORPUS_P_PATH = '../../../data/epic/corpus_epic.p'
-#REFERENCES_PATH = '../../../data/epic/references_epic.p'
-#GT_TAG_FEATS_PATH = '../../../data/epic/gt_tag_feats_epic.p'
-#NUM_TAGS = 1195
+#CORPUS_P_PATH = '../../../data/epic_current/corpus_epic_current.p'
+#REFERENCES_PATH = '../../../data/epic_current/references_epic_current.p'
+#GT_TAG_FEATS_PATH = '../../../data/epic_current/gt_tag_feats_epic_current.p'
+#NUM_TAGS = 1192
+#
+##### FUTURE EPIC FEATURES ####
+#CORPUS_P_PATH = '../../../data/epic_futureRC/corpus_epic_future.p'
+#REFERENCES_PATH = '../../../data/epic_futureRC/references_epic_future.p'
+#GT_TAG_FEATS_PATH = '../../../data/epic_futureRC/gt_tag_feats_epic_future.p'
+#NUM_TAGS = 1192
+#
+#### CF EPIC FEATURES ####
+#CORPUS_P_PATH = '../../../data/epic_CF/corpus_epic_CF.p'
+#REFERENCES_PATH = '../../../data/epic_CF/references_epic_CF.p'
+#GT_TAG_FEATS_PATH = '../../../data/epic_CF/gt_tag_feats_epic_CF.p'
+#NUM_TAGS = 1188
 
 #### CURRENT BREAKFAST FEATURES ####
 CORPUS_P_PATH = '../../../data/breakfast_current/corpus_breakfast_current.p'
 REFERENCES_PATH = '../../../data/breakfast_current/references_breakfast_current.p'
 GT_TAG_FEATS_PATH = '../../../data/breakfast_current/gt_tag_feats_breakfast_current.p'
-NUM_TAGS = 48
+NUM_TAGS = 47
+
+#### FUTURE BREAKFAST FEATURES ####
+#CORPUS_P_PATH = '../../../data/breakfast_future/corpus_breakfast_future.p'
+#REFERENCES_PATH = '../../../data/breakfast_future/references_breakfast_future.p'
+#GT_TAG_FEATS_PATH = '../../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
+#NUM_TAGS = 47
+
+#### CF BREAKFAST FEATURES ####
+#CORPUS_P_PATH = '../../../data/breakfast_CF/corpus_breakfast_CF.p'
+#REFERENCES_PATH = '../../../data/breakfast_CF/references_breakfast_CF.p'
+#GT_TAG_FEATS_PATH = '../../../data/breakfast_CF/gt_tag_feats_breakfast_CF.p'
+#NUM_TAGS = 47
+
+#### CF youcook2 FEATURES ####
+#CORPUS_P_PATH = '../../../data/youcook2_CF/corpus_youcook2_CF.p'
+#REFERENCES_PATH = '../../../data/youcook2_CF/references_youcook2_CF.p'
+#GT_TAG_FEATS_PATH = '../../../data/youcook2_CF/gt_tag_feats_youcook2_CF.p'
+#NUM_TAGS = 300
+
+#### future youcook2 FEATURES ####
+#CORPUS_P_PATH = '../../../data/youcook2_future/corpus_youcook2_future.p'
+#REFERENCES_PATH = '../../../data/youcook2_future/references_youcook2_future.p'
+#GT_TAG_FEATS_PATH = '../../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
+#NUM_TAGS = 1839
 
 if __name__ == "__main__":
     
@@ -21,7 +57,6 @@ if __name__ == "__main__":
     wordtoix, ixtoword = x[3], x[4]
     del x
     n_words = len(ixtoword)
-    
     n_count = np.zeros((n_words,)).astype("int32")
     for sent in train[0]:
         for w in sent:
@@ -47,7 +82,6 @@ if __name__ == "__main__":
     key_words = []
     for i in selected:
         key_words.append(word_sorted[i])
-    
     ixtoword = {}
     wordtoix = {}
     

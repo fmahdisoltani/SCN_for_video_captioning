@@ -16,16 +16,33 @@ from model_classifier.classifier import init_params, init_tparams, build_model
 from model_classifier.optimizers import Adam
 from model_classifier.utils import get_minibatches_idx, zipp, unzip
 
-
+IS_EPIC = False
 #### CURRENT EPIC FEATURES ####
-#HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_noun.h5"
-#HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_noun.h5"
+#HD5_TRAIN_NOUN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_noun_train.h5"
+#HD5_VALID_NOUN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_noun_validation.h5"
+#HD5_TRAIN_VERB = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_verb_train.h5"
+#HD5_VALID_VERB = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_verb_validation.h5"
+#GT_TAG_FEATS = "../../../data/epic_current/gt_tag_feats_epic_current.p"
+#SAVING_PATH = '../../../data/epic_current/epic_current_tagging_learned_params.npz'
+#TAG_FEATS_MAT = "../../../data/epic_current/tag_feats_pred_epic_current.mat"
 
-#HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/train_eco_verb.h5"
-#HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic/features_epic/val_eco_verb.h5"
-#GT_TAG_FEATS = "../../../data/epic/gt_tag_feats_epic.p"
-#SAVING_PATH = '../../../data/epic/epic_tagging_learned_params.npz'
-#TAG_FEATS_MAT = "../../../data/epic/tag_feats_pred_epic.mat"
+#### future EPIC FEATURES ####
+#HD5_TRAIN_NOUN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_train_noun.h5"
+#HD5_VALID_NOUN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_val_noun.h5"
+#HD5_TRAIN_VERB = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_train_verb.h5"
+#HD5_VALID_VERB = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_val_verb.h5"
+#GT_TAG_FEATS = "../../../data/epic_futureRC/gt_tag_feats_epic_future.p"
+#SAVING_PATH = '../../../data/epic_futureRC/epic_future_tagging_learned_params.npz'
+#TAG_FEATS_MAT = "../../../data/epic_futureRC/tag_feats_pred_epic_future.mat"
+#
+####CF EPIC FEATURES ####
+#HD5_TRAIN_NOUN = '../../../data/epic_CF/CF_epic_noun_train.h5'
+#HD5_TRAIN_VERB = '../../../data/epic_CF/CF_epic_verb_train.h5'
+#HD5_VALID_NOUN = '../../../data/epic_CF/CF_epic_noun_validation.h5'
+#HD5_VALID_VERB = '../../../data/epic_CF/CF_epic_verb_validation.h5'
+#GT_TAG_FEATS = '../../../data/epic_CF/gt_tag_feats_epic_CF.p'
+#SAVING_PATH =  '../../../data/epic_CF/epic_CF_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../../data/epic_CF/tag_feats_pred_epic_CF.mat'
 
 #### CURRENT BREAKFAST FEATURES ####
 HD5_TRAIN = '../../../data/breakfast_current/current_train_breakfast.h5'
@@ -35,7 +52,34 @@ SAVING_PATH =  '../../../data/breakfast_current/breakfast_current_tagging_learne
 TAG_FEATS_MAT =  '../../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
 
 
-# Set the random number generators' seeds for consistency
+####FUTURE BREAKFAST FEATURES ####
+#HD5_TRAIN = '../../../data/breakfast_future/future_breakfast_train.h5'
+#HD5_VALID = '../../../data/breakfast_future/future_breakfast_validation.h5'
+#GT_TAG_FEATS = '../../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
+#SAVING_PATH =  '../../../data/breakfast_future/breakfast_future_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
+
+####CF BREAKFAST FEATURES ####
+#HD5_TRAIN = '../../../data/breakfast_CF/CF_breakfast_train.h5'
+#HD5_VALID = '../../../data/breakfast_CF/CF_breakfast_val.h5'
+#GT_TAG_FEATS = '../../../data/breakfast_CF/gt_tag_feats_breakfast_CF.p'
+#SAVING_PATH =  '../../../data/breakfast_CF/breakfast_CF_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../../data/breakfast_CF/tag_feats_pred_breakfast_CF.mat'
+
+####CF youcook2 FEATURES ####
+#HD5_TRAIN = '../../../data/youcook2_CF/CF_youcook2_currentSeg_train_all.h5'
+#HD5_VALID = '../../../data/youcook2_CF/CF_youcook2_currentSeg_val_all.h5'
+#GT_TAG_FEATS = '../../../data/youcook2_CF/gt_tag_feats_youcook2_CF.p'
+#SAVING_PATH =  '../../../data/youcook2_CF/youcook2_CF_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../../data/youcook2_CF/tag_feats_pred_youcook2_CF.mat'
+
+####future youcook2 FEATURES ####
+#HD5_TRAIN = '../../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
+#HD5_VALID = '../../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
+#GT_TAG_FEATS = '../../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
+#SAVING_PATH =  '../../../data/youcook2_future/youcook2_future_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
+
 SEED = 123  
 np.random.seed(SEED)
 
@@ -46,8 +90,6 @@ def load_hd5(hd5_name, keyword):
         for key in f.keys():
            print(key)
         grid = f[keyword][()] #Convert to numpy
-    #if epic then uncomment the following line
-#    feats= np.squeeze(grid, axis=1)
     feats=grid
     return feats
 
@@ -80,19 +122,20 @@ if __name__ == '__main__':
     logger.addHandler(fh)
     
 
-    #### if using epic, uncomment the following lines ####
-    #train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
-    #train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
-    #img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    if IS_EPIC:
+        train_noun_feats = load_hd5(HD5_TRAIN_NOUN, "noun")
+        train_verb_feats = load_hd5(HD5_TRAIN_VERB, "verb")
+        img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
 
-    #valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
-    #valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
-    #img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    ######################################################
+        valid_noun_feats= load_hd5(HD5_VALID_NOUN, "noun")
+        valid_verb_feats = load_hd5(HD5_VALID_VERB, "verb")
+        img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+    else:
+        img_feats = load_hd5(HD5_TRAIN,"all")
+        img_feats_valid = load_hd5(HD5_VALID, "all")
+    
 
 
-    img_feats = load_hd5(HD5_TRAIN,"all")
-    img_feats_valid = load_hd5(HD5_VALID, "all")
     x = cPickle.load(open(GT_TAG_FEATS,"rb"))
     train_tag = x[0].astype(theano.config.floatX)
     valid_tag = x[1].astype(theano.config.floatX)
@@ -264,7 +307,4 @@ if __name__ == '__main__':
 
     logger.info('The code run for {} epochs, with {} sec/epochs'.format(eidx + 1, 
                  (end_time - start_time) / (1. * (eidx + 1))))
-    
-
-
-    
+     

@@ -2,12 +2,36 @@ import numpy as np
 import cPickle
 
 #### CURRENT EPIC FEATURES ####
-#DATA_P_PATH = '../../../data/epic/data_epic.p'
-#CORPUS_P_PATH = '../../../data/epic/corpus_epic.p'
+#DATA_P_PATH = '../../../data/epic_current/data_epic_current.p'
+#CORPUS_P_PATH = '../../../data/epic_current/corpus_epic_current.p'
+
+#### FUTURE EPIC FEATURES ####
+#DATA_P_PATH = '../../../data/epic_futureRC/data_epic_future.p'
+#CORPUS_P_PATH = '../../../data/epic_futureRC/corpus_epic_future.p'
+
+#### CF EPIC FEATURES ####
+#DATA_P_PATH = '../../../data/epic_CF/data_epic_CF.p'
+#CORPUS_P_PATH = '../../../data/epic_CF/corpus_epic_CF.p'
 
 #### CURRENT BREAKFAST FEATURES ####
 DATA_P_PATH = '../../../data/breakfast_current/data_breakfast_current.p'
 CORPUS_P_PATH = '../../../data/breakfast_current/corpus_breakfast_current.p'
+
+#### FUTURE BREAKFAST FEATURES ####
+#DATA_P_PATH = '../../../data/breakfast_future/data_breakfast_future.p'
+#CORPUS_P_PATH = '../../../data/breakfast_future/corpus_breakfast_future.p'
+
+#### CF BREAKFAST FEATURES ####
+#DATA_P_PATH = '../../../data/breakfast_CF/data_breakfast_CF.p'
+#CORPUS_P_PATH = '../../../data/breakfast_CF/corpus_breakfast_CF.p'
+
+#### CF youcook2 FEATURES ####
+#DATA_P_PATH = '../../../data/youcook2_CF/data_youcook2_CF.p'
+#CORPUS_P_PATH = '../../../data/youcook2_CF/corpus_youcook2_CF.p'
+
+#### future youcook2 FEATURES ####
+#DATA_P_PATH = '../../../data/youcook2_future/data_youcook2_future.p'
+#CORPUS_P_PATH = '../../../data/youcook2_future/corpus_youcook2_future.p'
 
 GoogleNews_PATH = '../../../data/GoogleNews-vectors-negative300.bin'
 

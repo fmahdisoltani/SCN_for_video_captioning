@@ -5,14 +5,44 @@ import cPickle
 import scipy.io
 
 #### CURRENT EPIC FEATURES ####
-#CAPTION_TRAIN_PATH = '../../../data/epic/video_description_train.txt'
-#CAPTION_VALID_PATH = '../../../data/epic/video_description_val.txt'
-#VOCAB_PATH = '../../../data/epic/vocabulary_epic.txt'
+#CAPTION_TRAIN_PATH = '../../../data/epic_current/current_epic_video_description_train.txt'
+#CAPTION_VALID_PATH = '../../../data/epic_current/current_epic_video_description_val.txt'
+#VOCAB_PATH = '../../../data/epic_current/vocabulary_epic_current.txt'
+
+#### FUTURE EPIC FEATURES ####
+#CAPTION_TRAIN_PATH = '../../../data/epic_futureRC/future_video_description_train.txt'
+#CAPTION_VALID_PATH = '../../../data/epic_futureRC/future_video_description_val.txt'
+#VOCAB_PATH = '../../../data/epic_futureRC/vocabulary_epic_future.txt'
+
+#### CF EPIC FEATURES ####
+#CAPTION_TRAIN_PATH = '../../../data/epic_CF/CF_future_video_description_train.txt'
+#CAPTION_VALID_PATH = '../../../data/epic_CF/CF_future_video_description_val.txt'
+#VOCAB_PATH = '../../../data/epic_CF/vocabulary_epic_CF.txt'
 
 #### CURRENT BREAKFAST FEATURES ####
 CAPTION_TRAIN_PATH = '../../../data/breakfast_current/current_s1_train_caption_list'
 CAPTION_VALID_PATH = '../../../data/breakfast_current/current_s1_val_caption_list'
 VOCAB_PATH = '../../../data/breakfast_current/vocabulary_breakfast_current.txt'
+
+#### FUTURE BREAKFAST FEATURES ####
+#CAPTION_TRAIN_PATH = '../../../data/breakfast_future/future_s1_train_caption_list'
+#CAPTION_VALID_PATH = '../../../data/breakfast_future/future_s1_val_caption_list'
+#VOCAB_PATH = '../../../data/breakfast_future/vocabulary_breakfast_future.txt'
+
+#### CF BREAKFAST FEATURES ####
+#CAPTION_TRAIN_PATH = '../../../data/breakfast_CF/CF_s1_train_caption_list'
+#CAPTION_VALID_PATH = '../../../data/breakfast_CF/CF_s1_val_caption_list'
+#VOCAB_PATH = '../../../data/breakfast_CF/vocabulary_breakfast_CF.txt'
+
+#### CF youcook FEATURES ####
+#CAPTION_TRAIN_PATH = '../../../data/youcook2_CF/CF_youcook_description_training_future'
+#CAPTION_VALID_PATH = '../../../data/youcook2_CF/CF_youcook_description_validation_future'
+#VOCAB_PATH = '../../../data/youcook2_CF/vocabulary_youcook2_CF.txt'
+
+#### future youcook FEATURES ####
+#CAPTION_TRAIN_PATH = '../../../data/youcook2_future/future_youcook_description_training_future'
+#CAPTION_VALID_PATH = '../../../data/youcook2_future/future_youcook_description_validation_future'
+#VOCAB_PATH = '../../../data/youcook2_future/vocabulary_youcook2_future.txt'
 
 if __name__ == "__main__":
 

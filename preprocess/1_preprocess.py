@@ -5,11 +5,25 @@ import cPickle
 import scipy.io
 
 #### CURRENT EPIC FEATURES ####
-#VOCAB_PATH = '../../../data/epic/vocabulary_epic.txt'
-#TRAIN_CAPTION_PATH = '../../../data/epic/video_description_train.txt'
-#VALID_CAPTION_PATH = '../../../data/epic/video_description_val.txt'
-#DATA_P_PATH = '../../../data/epic/data_epic.p'
-#REFERENCES_PATH = '../../../data/epic/references_epic.p'
+#VOCAB_PATH = '../../../data/epic_current/vocabulary_epic_current.txt'
+#TRAIN_CAPTION_PATH = '../../../data/epic_current/current_epic_video_description_train.txt'
+#VALID_CAPTION_PATH = '../../../data/epic_current/current_epic_video_description_val.txt'
+#DATA_P_PATH = '../../../data/epic_current/data_epic_current.p'
+#REFERENCES_PATH = '../../../data/epic_current/references_epic_current.p'
+
+#### future RC EPIC FEATURES ####
+#VOCAB_PATH = '../../../data/epic_futureRC/vocabulary_epic_future.txt'
+#TRAIN_CAPTION_PATH = '../../../data/epic_futureRC/future_video_description_train.txt'
+#VALID_CAPTION_PATH = '../../../data/epic_futureRC/future_video_description_val.txt'
+#DATA_P_PATH = '../../../data/epic_futureRC/data_epic_future.p'
+#REFERENCES_PATH = '../../../data/epic_futureRC/references_epic_future.p'
+#
+#### CF EPIC FEATURES ####
+#VOCAB_PATH = '../../../data/epic_CF/vocabulary_epic_CF.txt'
+#TRAIN_CAPTION_PATH =  '../../../data/epic_CF/CF_future_video_description_train.txt'
+#VALID_CAPTION_PATH =  '../../../data/epic_CF/CF_future_video_description_val.txt'
+#DATA_P_PATH = '../../../data/epic_CF/data_epic_CF.p'
+#REFERENCES_PATH = '../../../data/epic_CF/references_epic_CF.p'
 
 #### CURRENT BREAKFAST FEATURES ####
 VOCAB_PATH = '../../../data/breakfast_current/vocabulary_breakfast_current.txt'
@@ -18,6 +32,41 @@ VALID_CAPTION_PATH =  '../../../data/breakfast_current/current_s1_val_caption_li
 DATA_P_PATH = '../../../data/breakfast_current/data_breakfast_current.p'
 REFERENCES_PATH = '../../../data/breakfast_current/references_breakfast_current.p'
 
+#### FUTURE BREAKFAST FEATURES ####
+#VOCAB_PATH = '../../../data/breakfast_future/vocabulary_breakfast_future.txt'
+#TRAIN_CAPTION_PATH =  '../../../data/breakfast_future/future_s1_train_caption_list'
+#VALID_CAPTION_PATH =  '../../../data/breakfast_future/future_s1_val_caption_list'
+#DATA_P_PATH = '../../../data/breakfast_future/data_breakfast_future.p'
+#REFERENCES_PATH = '../../../data/breakfast_future/references_breakfast_future.p'
+
+#### CF BREAKFAST FEATURES ####
+#VOCAB_PATH = '../../../data/breakfast_CF/vocabulary_breakfast_CF.txt'
+#TRAIN_CAPTION_PATH =  '../../../data/breakfast_CF/CF_s1_train_caption_list'
+#VALID_CAPTION_PATH =  '../../../data/breakfast_CF/CF_s1_val_caption_list'
+#DATA_P_PATH = '../../../data/breakfast_CF/data_breakfast_CF.p'
+#REFERENCES_PATH = '../../../data/breakfast_CF/references_breakfast_CF.p'
+
+#### CF EPIC FEATURES ####
+#VOCAB_PATH = '../../../data/epic_CF/vocabulary_epic_CF.txt'
+#TRAIN_CAPTION_PATH =  '../../../data/epic_CF/CF_future_video_description_train.txt'
+#VALID_CAPTION_PATH =  '../../../data/epic_CF/CF_future_video_description_val.txt'
+#DATA_P_PATH = '../../../data/epic_CF/data_epic_CF.p'
+#REFERENCES_PATH = '../../../data/epic_CF/references_epic_CF.p'
+
+
+#### CF youcook2 FEATURES ####
+#VOCAB_PATH = '../../../data/youcook2_CF/vocabulary_youcook2_CF.txt'
+#TRAIN_CAPTION_PATH = '../../../data/youcook2_CF/CF_youcook_description_training_future'
+#VALID_CAPTION_PATH = '../../../data/youcook2_CF/CF_youcook_description_validation_future'
+#DATA_P_PATH = '../../../data/youcook2_CF/data_youcook2_CF.p'
+#REFERENCES_PATH = '../../../data/youcook2_CF/references_youcook2_CF.p'
+
+#### future youcook2 FEATURES ####
+#VOCAB_PATH = '../../../data/youcook2_future/vocabulary_youcook2_future.txt'
+#TRAIN_CAPTION_PATH = '../../../data/youcook2_future/future_youcook_description_training_future'
+#VALID_CAPTION_PATH = '../../../data/youcook2_future/future_youcook_description_validation_future'
+#DATA_P_PATH = '../../../data/youcook2_future/data_youcook2_future.p'
+#REFERENCES_PATH = '../../../data/youcook2_future/references_youcook2_future.p'
 
 if __name__ == "__main__":
      
@@ -125,3 +174,4 @@ if __name__ == "__main__":
             valid_id.append(count+train_count+1)
     ################################################################     
     cPickle.dump([train_ref, valid_ref, test_ref], open(REFERENCES_PATH, "wb"))
+    1/0

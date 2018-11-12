@@ -10,22 +10,92 @@ import scipy.io
 import numpy as np
 from collections import OrderedDict
 
-VOCAB_PATH = '../../data/breakfast_current/vocabulary_breakfast_current.txt'
-TRAIN_CAPTION_PATH =  '../../data/breakfast_current/current_s1_train_caption_list'
-VALID_CAPTION_PATH =  '../../data/breakfast_current/current_s1_val_caption_list'
-DATA_P_PATH = '../../data/breakfast_current/data_breakfast_current.p'
-REFERENCES_PATH = '../../data/breakfast_current/references_breakfast_current.p'
-CORPUS_P_PATH = '../../data/breakfast_current/corpus_breakfast_current.p'
+IS_EPIC=False
+#### CURRENT EPIC FEATURES ####
+#REFERENCES_PATH = '../../data/epic_current/references_epic_current.p'
+#CORPUS_P_PATH = '../../data/epic_current/corpus_epic_current.p'
+#HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_noun_train.h5"
+#HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_noun_validation.h5"
+#HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_verb_train.h5"
+#HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_verb_validation.h5"
+#TAG_FEATS_PRED = '../../data/epic_current/tag_feats_pred_epic_current.mat' #By default its n+v
+#RESULT_PATH = '../../data/epic_current/epic_current_result_scn_dropout.5_lr.0002_'
+#NBEST = "../../data/epic_current/epic_current_nbest_dropout.5_lr.0002.p"
+#TEST_RESULT = '../../data/epic_current/epic_current_scn_test_dropout.5_lr.0002.txt'
 
+#### FUTURE RC EPIC FEATURES ####
+#REFERENCES_PATH = '../../data/epic_futureRC/references_epic_future.p'
+#CORPUS_P_PATH = '../../data/epic_futureRC/corpus_epic_future.p'
+#HD5_NOUN_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_train_noun.h5"
+#HD5_NOUN_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_val_noun.h5"
+#HD5_VERB_TRAIN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_train_verb.h5"
+#HD5_VERB_VALID = "/ais/fleet10/farzaneh/scn_captioning/data/epic_futureRC/future_epic_val_verb.h5"
+#TAG_FEATS_PRED = '../../data/epic_futureRC/tag_feats_pred_epic_future.mat'
+#RESULT_PATH = '../../data/epic_futureRC/epic_future_result_scn_dropout.5_lr.0002_'
+#NBEST = "../../data/epic_futureRC/epic_future_nbest_dropout.5_lr.0002.p"
+#TEST_RESULT = '../../data/epic_futureRC/epic_future_scn_test_dropout.5_lr.0002.txt'
+#
+#### CF epic FEATURES ####
+#REFERENCES_PATH = '../../data/epic_CF/references_epic_CF.p'
+#CORPUS_P_PATH = '../../data/epic_CF/corpus_epic_CF.p'
+#HD5_TRAIN_NOUN = '../../data/epic_CF/CF_epic_noun_train.h5'
+#HD5_TRAIN_VERB = '../../data/epic_CF/CF_epic_verb_train.h5'
+#HD5_VALID_NOUN = '../../data/epic_CF/CF_epic_noun_validation.h5'
+#HD5_VALID_VERB = '../../data/epic_CF/CF_epic_verb_validation.h5'
+#TAG_FEATS_PRED = '../../data/epic_CF/tag_feats_pred_epic_CF.mat'
+#RESULT_PATH = '../../data/epic_CF/epic_CF_result_scn_dropout.8_lr.0002_'
+#NBEST = "../../data/epic_CF/epic_CF_nbest.p"
+#TEST_RESULT = '../../data/epic_CF/epic_CF_scn_test_dropout.8_lr.0002.txt'
 
-HD5_TRAIN = '../../data/breakfast_current/current_train_breakfast.h5'
-HD5_VALID = '../../data/breakfast_current/current_validation_breakfast.h5'
+#### CURRENT BREAKFAST FEATURES####
+#REFERENCES_PATH = '../../data/breakfast_current/references_breakfast_current.p'
+#CORPUS_P_PATH = '../../data/breakfast_current/corpus_breakfast_current.p'
+#HD5_TRAIN = '../../data/breakfast_current/current_train_breakfast.h5'
+#HD5_VALID = '../../data/breakfast_current/current_validation_breakfast.h5'
+#TAG_FEATS_PRED = '../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
+#RESULT_PATH = '../../data/breakfast_current/breakfast_current_result_scn_dropout.5_lr.0002_'
+#NBEST = "../../data/breakfast_current/breakfast_current_nbest.p"
+#TEST_RESULT = '../../data/breakfast_current/breakfast_current_scn_test_dropout.5_lr.0002.txt'
 
-TAG_FEATS_PRED = '../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
+#### FUTURE BREAKFAST FEATURES ####
+#REFERENCES_PATH = '../../data/breakfast_future/references_future.p'
+#CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
+#HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train.h5'
+#HD5_VALID = '../../data/breakfast_future/future_breakfast_validation.h5'
+#TAG_FEATS_PRED = '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
+#RESULT_PATH = '../../data/breakfast_future/breakfast_future_result_scn_dropout.5_lr.0002_'
+#NBEST = "../../data/breakfast_future/breakfast_future_nbest.p"
+#TEST_RESULT = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.0002.txt'
 
-RESULT_PATH = './breakfast_current_result_scn_'
-NBEST = "breakfast_current_nbest.p"
-TEST_RESULT = './breakfast_current_scn_test.txt'
+#### CF BREAKFAST FEATURES ####
+#REFERENCES_PATH = '../../data/breakfast_CF/references_breakfast_CF.p'
+#CORPUS_P_PATH = '../../data/breakfast_CF/corpus_breakfast_CF.p'
+#HD5_TRAIN = '../../data/breakfast_CF/CF_breakfast_train.h5'
+#HD5_VALID = '../../data/breakfast_CF/CF_breakfast_val.h5'
+#TAG_FEATS_PRED = '../../data/breakfast_CF/tag_feats_pred_breakfast_CF.mat'
+#RESULT_PATH = '../../data/breakfast_CF/breakfast_CF_result_scn_dropout.5_lr.0002_epoch20_'
+#NBEST = "../../data/breakfast_CF/breakfast_CF_nbest.p"
+#TEST_RESULT = '../../data/breakfast_CF/breakfast_CF_scn_test_dropout.5_lr.0002.txt'
+
+#### CF youcook2 FEATURES ####
+#REFERENCES_PATH = '../../data/youcook2_CF/references_youcook2_CF.p'
+#CORPUS_P_PATH = '../../data/youcook2_CF/corpus_youcook2_CF.p'
+#HD5_TRAIN = '../../data/youcook2_CF/CF_youcook2_currentSeg_train_all.h5'
+#HD5_VALID = '../../data/youcook2_CF/CF_youcook2_currentSeg_val_all.h5'
+#TAG_FEATS_PRED = '../../data/youcook2_CF/tag_feats_pred_youcook2_CF.mat'
+#RESULT_PATH = '../../data/youcook2_CF/youcook2_CF_result_scn_dropout.8_lr.002_epoch30_300tags_'
+#NBEST = "../../data/youcook2_CF/youcook2_CF_nbest.p"
+#TEST_RESULT = '../../data/youcook2_CF/youcook2_CF_scn_test_dropout.8_lr.002_tags300.txt'
+
+#### future youcook2 FEATURES ####
+REFERENCES_PATH = '../../data/youcook2_future/references_youcook2_future.p'
+CORPUS_P_PATH = '../../data/youcook2_future/corpus_youcook2_future.p'
+HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
+HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
+TAG_FEATS_PRED = '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
+RESULT_PATH = '../../data/youcook2_future/youcook2_future_result_scn_dropout.5_lr.0002_epoch20_'
+NBEST = "../../data/youcook2_future/youcook2_future_nbest.p"
+TEST_RESULT = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt'
 
 
 def load_hd5(hd5_name, keyword):
@@ -293,45 +363,24 @@ if __name__ == '__main__':
     #    grid = f["noun"][()] #Convert to numpy
     #train_noun_feats= np.squeeze(grid, axis=1)
 
+    if IS_EPIC:
+        train_noun_feats = load_hd5(HD5_NOUN_TRAIN, "noun")
+        train_verb_feats = load_hd5(HD5_VERB_TRAIN, "verb")
+        img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+        #img_feats = train_verb_feats
 
-    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/epic/features_epic/train_eco_verb.h5"
-    #with h5py.File(hdf5_name,"r") as f:
-    #    for key in f.keys():
-    #       print(key)
-
-    #    grid = f["verb"][()] #Convert to numpy
-    #train_verb_feats = np.squeeze(grid, axis=1)
-    #img_feats_train = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    #img_feats_train = train_verb_feats
-
-    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/epic/features_epic/val_eco_noun.h5"
-    #with h5py.File(hdf5_name,"r") as f:
-   
-    #       print(key)
-    #    grid = f["noun"][()] #Convert to numpy
-    #valid_noun_feats= np.squeeze(grid, axis=1)
-
-
-    #hdf5_name = "/ais/fleet10/farzaneh/scn_captioning/SCN_for_video_captioning/data/epic/features_epic/val_eco_verb.h5"
-    #with h5py.File(hdf5_name,"r") as f:
-    #    for key in f.keys():
-    #       print(key)
-
-     #   grid = f["verb"][()] #Convert to numpy
-    #valid_verb_feats = np.squeeze(grid, axis=1)
-    #img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    #img_feats_valid = valid_verb_feats
-    #  img_feats = np.concatenate((img_feats_train, img_feats_valid), axis=0)
-    #img_feats = np.concatenate((img_feats_train, img_feats_valid), axis=0)
-    
-    img_feats = load_hd5(HD5_TRAIN, "all")
-    img_feats_valid = load_hd5(HD5_VALID, "all")
-
+        valid_noun_feats= load_hd5(HD5_NOUN_VALID, "noun")
+        valid_verb_feats = load_hd5(HD5_VERB_VALID, "verb")
+        img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+        #img_feats_valid = valid_noun_feats
+    else:
+        img_feats = load_hd5(HD5_TRAIN, "verb")
+        img_feats_valid = load_hd5(HD5_VALID, "verb")
     data = scipy.io.loadmat(TAG_FEATS_PRED)
     tag_feats = data['feats']
     z = img_feats_valid #img_feats[1300:]
-    #y = tag_feats[24699:]
-    y = tag_feats[10872:]
+    TRAIN_SIZE = img_feats.shape[0]-1
+    y = tag_feats[TRAIN_SIZE:]
     del img_feats, tag_feats
     
     path = RESULT_PATH 

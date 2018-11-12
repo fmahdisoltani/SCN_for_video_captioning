@@ -57,26 +57,26 @@ IS_EPIC=False
 #LR = 0.0002
 
 #### CURRENT BREAKFAST FEATURES ####
-HD5_TRAIN = '../../data/breakfast_current/current_train_breakfast.h5'
-HD5_VALID = '../../data/breakfast_current/current_validation_breakfast.h5'
-TAG_FEATS_PRE_PATH = '../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
-CORPUS_P_PATH = "../../data/breakfast_current/corpus_breakfast_current.p"
-SAVE_TO_PATH = '../../data/breakfast_current/breakfast_current_result_scn_dropout.5_lr.0002_0.npz'
-N_WORDS = 47
-DROP_OUT = 0.5
-LR = 0.0002
-MAX_EPOCH = 20
-
-#### FUTURE BREAKFAST FEATURES ####
-#HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train.h5'
-#HD5_VALID = '../../data/breakfast_future/future_breakfast_validation.h5'
-#TAG_FEATS_PRE_PATH = '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
-#CORPUS_P_PATH = "../../data/breakfast_future/corpus_breakfast_future.p"
-#SAVE_TO_PATH = '../../data/breakfast_future/breakfast_future_result_scn_dropout.5_lr.0002_0.npz'
+#HD5_TRAIN = '../../data/breakfast_current/current_train_breakfast.h5'
+#HD5_VALID = '../../data/breakfast_current/current_validation_breakfast.h5'
+#TAG_FEATS_PRE_PATH = '../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
+#CORPUS_P_PATH = "../../data/breakfast_current/corpus_breakfast_current.p"
+#SAVE_TO_PATH = '../../data/breakfast_current/breakfast_current_result_scn_dropout.5_lr.0002_0.npz'
 #N_WORDS = 47
 #DROP_OUT = 0.5
 #LR = 0.0002
 #MAX_EPOCH = 20
+
+#### FUTURE BREAKFAST FEATURES ####
+HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train_all.h5'
+HD5_VALID = '../../data/breakfast_future/future_breakfast_val_all.h5'
+TAG_FEATS_PRE_PATH = '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
+CORPUS_P_PATH = "../../data/breakfast_future/corpus_breakfast_future.p"
+SAVE_TO_PATH = '../../data/breakfast_future/breakfast_future_result_scn_dropout.5_lr.0002_0.npz'
+N_WORDS = 47
+DROP_OUT = 0.5
+LR = 0.0002
+MAX_EPOCH = 20
 
 #### CF BREAKFAST FEATURES ####
 #HD5_TRAIN = '../../data/breakfast_CF/CF_breakfast_train.h5'
@@ -111,15 +111,15 @@ MAX_EPOCH = 20
 #MAX_EPOCH = 30
 
 #### future youcook2 FEATURES ####
-HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
-HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
-TAG_FEATS_PRE_PATH = '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
-CORPUS_P_PATH = "../../data/youcook2_future/corpus_youcook2_future.p"
-SAVE_TO_PATH = '../../data/youcook2_future/youcook2_future_result_scn_dropout.5_lr.0002_epoch20_0.npz'
-N_WORDS = 1839
-DROP_OUT = 0.5
-LR = 0.0002
-MAX_EPOCH = 20
+#HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
+#HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
+#TAG_FEATS_PRE_PATH = '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
+#CORPUS_P_PATH = "../../data/youcook2_future/corpus_youcook2_future.p"
+#SAVE_TO_PATH = '../../data/youcook2_future/youcook2_future_result_scn_dropout.5_lr.0002_epoch20_0.npz'
+#N_WORDS = 1839
+#DROP_OUT = 0.5
+#LR = 0.0002
+#MAX_EPOCH = 20
 
 # Set the random number generators' seeds for consistency
 SEED = 123  
@@ -235,6 +235,7 @@ def train_model(train, valid, test, img_feats, tag_feats, W, n_words=N_WORDS, n_
     
     try:
         for eidx in xrange(max_epochs):
+            print "Epoch number: {}".format(eidx)
             kf = get_minibatches_idx(len(train[0]), batch_size, shuffle=True)
 
             for _, train_index in kf:
@@ -368,8 +369,8 @@ if __name__ == '__main__':
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
         ##img_feats_valid = valid_noun_feats
     else:
-        img_feats = load_hd5(HD5_TRAIN, "verb")
-        img_feats_valid = load_hd5(HD5_VALID, "verb")
+        img_feats = load_hd5(HD5_TRAIN, "all")
+        img_feats_valid = load_hd5(HD5_VALID, "all")
 
     data = scipy.io.loadmat(TAG_FEATS_PRE_PATH)
     tag_feats = data['feats'].astype(theano.config.floatX)

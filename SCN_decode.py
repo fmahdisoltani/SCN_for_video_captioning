@@ -58,14 +58,14 @@ IS_EPIC=False
 #TEST_RESULT = '../../data/breakfast_current/breakfast_current_scn_test_dropout.5_lr.0002.txt'
 
 #### FUTURE BREAKFAST FEATURES ####
-#REFERENCES_PATH = '../../data/breakfast_future/references_future.p'
-#CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
-#HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train.h5'
-#HD5_VALID = '../../data/breakfast_future/future_breakfast_validation.h5'
-#TAG_FEATS_PRED = '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
-#RESULT_PATH = '../../data/breakfast_future/breakfast_future_result_scn_dropout.5_lr.0002_'
-#NBEST = "../../data/breakfast_future/breakfast_future_nbest.p"
-#TEST_RESULT = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.0002.txt'
+REFERENCES_PATH = '../../data/breakfast_future/references_future.p'
+CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
+HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train.h5'
+HD5_VALID = '../../data/breakfast_future/future_breakfast_validation.h5'
+TAG_FEATS_PRED = '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
+RESULT_PATH = '../../data/breakfast_future/breakfast_future_result_scn_dropout.5_lr.0002_'
+NBEST = "../../data/breakfast_future/breakfast_future_nbest.p"
+TEST_RESULT = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.0002.txt'
 
 #### CF BREAKFAST FEATURES ####
 #REFERENCES_PATH = '../../data/breakfast_CF/references_breakfast_CF.p'
@@ -88,14 +88,14 @@ IS_EPIC=False
 #TEST_RESULT = '../../data/youcook2_CF/youcook2_CF_scn_test_dropout.8_lr.002_tags300.txt'
 
 #### future youcook2 FEATURES ####
-REFERENCES_PATH = '../../data/youcook2_future/references_youcook2_future.p'
-CORPUS_P_PATH = '../../data/youcook2_future/corpus_youcook2_future.p'
-HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
-HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
-TAG_FEATS_PRED = '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
-RESULT_PATH = '../../data/youcook2_future/youcook2_future_result_scn_dropout.5_lr.0002_epoch20_'
-NBEST = "../../data/youcook2_future/youcook2_future_nbest.p"
-TEST_RESULT = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt'
+#REFERENCES_PATH = '../../data/youcook2_future/references_youcook2_future.p'
+#CORPUS_P_PATH = '../../data/youcook2_future/corpus_youcook2_future.p'
+#HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
+#HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
+#TAG_FEATS_PRED = '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
+#RESULT_PATH = '../../data/youcook2_future/youcook2_future_result_scn_dropout.5_lr.0002_epoch20_'
+#NBEST = "../../data/youcook2_future/youcook2_future_nbest.p"
+#TEST_RESULT = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt'
 
 
 def load_hd5(hd5_name, keyword):
@@ -374,8 +374,8 @@ if __name__ == '__main__':
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
         #img_feats_valid = valid_noun_feats
     else:
-        img_feats = load_hd5(HD5_TRAIN, "verb")
-        img_feats_valid = load_hd5(HD5_VALID, "verb")
+        img_feats = load_hd5(HD5_TRAIN, "all")
+        img_feats_valid = load_hd5(HD5_VALID, "all")
     data = scipy.io.loadmat(TAG_FEATS_PRED)
     tag_feats = data['feats']
     z = img_feats_valid #img_feats[1300:]

@@ -19,8 +19,8 @@ import cPickle
 #TEST_RESULTS = '../../data/breakfast_current/breakfast_current_scn_test_dropout.5_lr.0002.txt'
 
 #### FUTURE BREAKFAST FEATURES ####
-#REFERENCES_PATH = "../../data/breakfast_future/references_breakfast_future.p"
-#TEST_RESULTS = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.0002.txt'
+REFERENCES_PATH = "../../data/breakfast_future/references_breakfast_future.p"
+TEST_RESULTS = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.0002.txt'
 
 #### CF BREAKFAST FEATURES ####
 #REFERENCES_PATH = "../../data/breakfast_CF/references_breakfast_CF.p"
@@ -31,8 +31,8 @@ import cPickle
 #TEST_RESULTS = '../../data/youcook2_CF/youcook2_CF_scn_test_dropout.8_lr.002.txt'
 
 #### future youcook2 FEATURES ####
-REFERENCES_PATH = "../../data/youcook2_future/references_youcook2_future.p"
-TEST_RESULTS = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt' 
+#REFERENCES_PATH = "../../data/youcook2_future/references_youcook2_future.p"
+#TEST_RESULTS = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt' 
 
 #### CF EPIC FEATURES ####
 #REFERENCES_PATH = "../../data/epic_CF/references_epic_CF.p"

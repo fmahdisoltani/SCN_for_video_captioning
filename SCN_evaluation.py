@@ -14,9 +14,38 @@ from pycocoevalcap.meteor.meteor import Meteor
 
 import cPickle
 
+#### CURRENT BREAKFAST FEATURES ####
+#REFERENCES_PATH = "../../data/breakfast_current/references_breakfast_current.p"
+#TEST_RESULTS = '../../data/breakfast_current/breakfast_current_scn_test_dropout.5_lr.0002.txt'
 
-REFERENCES_PATH = "./data/breakfast_current/references_breakfast_current.p"
-T_RESULTS = './breakfast_current_scn_test.txt'
+#### FUTURE BREAKFAST FEATURES ####
+#REFERENCES_PATH = "../../data/breakfast_future/references_breakfast_future.p"
+#TEST_RESULTS = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.0002.txt'
+
+#### CF BREAKFAST FEATURES ####
+#REFERENCES_PATH = "../../data/breakfast_CF/references_breakfast_CF.p"
+#TEST_RESULTS = '../../data/breakfast_CF/breakfast_CF_scn_test_dropout.5_lr.0002.txt'
+
+#### CF youcook2 FEATURES ####
+#REFERENCES_PATH = "../../data/youcook2_CF/references_youcook2_CF.p"
+#TEST_RESULTS = '../../data/youcook2_CF/youcook2_CF_scn_test_dropout.8_lr.002.txt'
+
+#### future youcook2 FEATURES ####
+REFERENCES_PATH = "../../data/youcook2_future/references_youcook2_future.p"
+TEST_RESULTS = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt' 
+
+#### CF EPIC FEATURES ####
+#REFERENCES_PATH = "../../data/epic_CF/references_epic_CF.p"
+#TEST_RESULTS = '../../data/epic_CF/epic_CF_scn_test_dropout.8_lr.0002.txt'
+
+#### FUTURE EPIC FEATURES ####
+#REFERENCES_PATH = "../../data/epic_futureRC/references_epic_future.p"
+#TEST_RESULTS = '../../data/epic_futureRC/epic_future_scn_test_dropout.5_lr.0002.txt'
+
+#### CURRENT EPIC FEATURES ####
+#REFERENCES_PATH = "../../data/epic_current/references_epic_current.p"
+#TEST_RESULTS = '../../data/epic_current/epic_current_scn_test_dropout.5_lr.0002.txt'
+
 
 def score(ref, hypo):
     """

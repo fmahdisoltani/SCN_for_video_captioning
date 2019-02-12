@@ -20,19 +20,24 @@ import scipy.io
 #VOCAB_PATH = '../../../data/epic_CF/vocabulary_epic_CF.txt'
 
 #### CURRENT BREAKFAST FEATURES ####
-CAPTION_TRAIN_PATH = '../../../data/breakfast_current/current_s1_train_caption_list'
-CAPTION_VALID_PATH = '../../../data/breakfast_current/current_s1_val_caption_list'
-VOCAB_PATH = '../../../data/breakfast_current/vocabulary_breakfast_current.txt'
+#CAPTION_TRAIN_PATH = '../../data/breakfast_current/current_s1_train_caption_list'
+#CAPTION_VALID_PATH = '../../data/breakfast_current/current_s1_val_caption_list'
+#VOCAB_PATH = '../../data/breakfast_current/vocabulary_breakfast_current.txt'
 
 #### FUTURE BREAKFAST FEATURES ####
-#CAPTION_TRAIN_PATH = '../../../data/breakfast_future/future_s1_train_caption_list'
-#CAPTION_VALID_PATH = '../../../data/breakfast_future/future_s1_val_caption_list'
-#VOCAB_PATH = '../../../data/breakfast_future/vocabulary_breakfast_future.txt'
+#CAPTION_TRAIN_PATH = '../../data/breakfast_future/future_s1_train_caption_list'
+#CAPTION_VALID_PATH = '../../data/breakfast_future/future_s1_val_caption_list'
+#VOCAB_PATH = '../../data/breakfast_future/vocabulary_breakfast_future.txt'
+
+#### FUTURE RC BREAKFAST FEATURES ####
+#CAPTION_TRAIN_PATH = '../../data/breakfast_futureRC/futureRC_s1_train_caption_list'
+#CAPTION_VALID_PATH = '../../data/breakfast_futureRC/futureRC_s1_val_caption_list'
+#VOCAB_PATH = '../../data/breakfast_futureRC/vocabulary_breakfast_futureRC.txt'
 
 #### CF BREAKFAST FEATURES ####
-#CAPTION_TRAIN_PATH = '../../../data/breakfast_CF/CF_s1_train_caption_list'
-#CAPTION_VALID_PATH = '../../../data/breakfast_CF/CF_s1_val_caption_list'
-#VOCAB_PATH = '../../../data/breakfast_CF/vocabulary_breakfast_CF.txt'
+#CAPTION_TRAIN_PATH = '../../data/breakfast_CF/CF_s1_train_caption_list'
+#CAPTION_VALID_PATH = '../../data/breakfast_CF/CF_s1_val_caption_list'
+#VOCAB_PATH = '../../data/breakfast_CF/vocabulary_breakfast_CF.txt'
 
 #### CF youcook FEATURES ####
 #CAPTION_TRAIN_PATH = '../../../data/youcook2_CF/CF_youcook_description_training_future'
@@ -40,12 +45,15 @@ VOCAB_PATH = '../../../data/breakfast_current/vocabulary_breakfast_current.txt'
 #VOCAB_PATH = '../../../data/youcook2_CF/vocabulary_youcook2_CF.txt'
 
 #### future youcook FEATURES ####
-#CAPTION_TRAIN_PATH = '../../../data/youcook2_future/future_youcook_description_training_future'
-#CAPTION_VALID_PATH = '../../../data/youcook2_future/future_youcook_description_validation_future'
-#VOCAB_PATH = '../../../data/youcook2_future/vocabulary_youcook2_future.txt'
+#CAPTION_TRAIN_PATH = '../../data/youcook2_future/future_youcook_description_training_future'
+#CAPTION_VALID_PATH = '../../data/youcook2_future/future_youcook_description_validation_future'
+#VOCAB_PATH = '../../data/youcook2_future/vocabulary_youcook2_future.txt'
 
-if __name__ == "__main__":
-
+#if __name__ == "__main__":
+def step0_build_vocab(config_obj):
+    CAPTION_TRAIN_PATH = config_obj.get(caption_train_path)
+    CAPTION_VALID_PATH = config_obj.get(caption_valid_path)
+    VOCAB_PATH = config_obj.get(vocab_path)
     ixtoword = {}
     ixtoword[0] = '<eos>'
     wordtoix = {}
@@ -70,3 +78,6 @@ if __name__ == "__main__":
     with open(VOCAB_PATH, 'w') as f:
         for item in vocab:
              print >> f, item
+print "0..Vocabulary Built"
+
+

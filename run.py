@@ -10,8 +10,11 @@ Options:
 
 from docopt import docopt
 
-from SCN_for_video_captioning import SCN_training, SCN_decode, SCN_evaluation
+#CONFIG_PATH = "./config_files/c1.yaml"
 
+from yaml_config import YamlConfig
+import SCN_training, SCN_decode, SCN_evaluation
+from preprocess.build_vocabulary_0 import step0_build_vocab
 
 if __name__ == "__main__":
     # Get argument
@@ -21,5 +24,5 @@ if __name__ == "__main__":
     config_obj = YamlConfig(args["<config_path>"])
 
     # Run captioning model
-    train_model(config_obj)
+    step0_build_vocab(config_obj)
 

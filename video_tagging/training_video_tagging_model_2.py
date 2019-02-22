@@ -45,26 +45,33 @@ IS_EPIC = False
 #TAG_FEATS_MAT =  '../../../data/epic_CF/tag_feats_pred_epic_CF.mat'
 
 #### CURRENT BREAKFAST FEATURES ####
-HD5_TRAIN = '../../../data/breakfast_current/current_train_breakfast.h5'
-HD5_VALID = '../../../data/breakfast_current/current_validation_breakfast.h5'
-GT_TAG_FEATS = '../../../data/breakfast_current/gt_tag_feats_breakfast_current.p'
-SAVING_PATH =  '../../../data/breakfast_current/breakfast_current_tagging_learned_params.npz'
-TAG_FEATS_MAT =  '../../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
+#HD5_TRAIN = '../../data/breakfast_current/current_train_breakfast.h5'
+#HD5_VALID = '../../data/breakfast_current/current_validation_breakfast.h5'
+#GT_TAG_FEATS = '../../data/breakfast_current/gt_tag_feats_breakfast_current.p'
+#SAVING_PATH =  '../../data/breakfast_current/breakfast_current_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../data/breakfast_current/tag_feats_pred_breakfast_current.mat'
 
 
 ####FUTURE BREAKFAST FEATURES ####
-#HD5_TRAIN = '../../../data/breakfast_future/future_breakfast_train.h5'
-#HD5_VALID = '../../../data/breakfast_future/future_breakfast_validation.h5'
-#GT_TAG_FEATS = '../../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
-#SAVING_PATH =  '../../../data/breakfast_future/breakfast_future_tagging_learned_params.npz'
-#TAG_FEATS_MAT =  '../../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
+HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train_all.h5'
+HD5_VALID = '../../data/breakfast_future/future_breakfast_val_all.h5'
+GT_TAG_FEATS = '../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
+SAVING_PATH =  '../../data/breakfast_future/breakfast_future_tagging_learned_params.npz'
+TAG_FEATS_MAT =  '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
 
 ####CF BREAKFAST FEATURES ####
-#HD5_TRAIN = '../../../data/breakfast_CF/CF_breakfast_train.h5'
-#HD5_VALID = '../../../data/breakfast_CF/CF_breakfast_val.h5'
-#GT_TAG_FEATS = '../../../data/breakfast_CF/gt_tag_feats_breakfast_CF.p'
-#SAVING_PATH =  '../../../data/breakfast_CF/breakfast_CF_tagging_learned_params.npz'
-#TAG_FEATS_MAT =  '../../../data/breakfast_CF/tag_feats_pred_breakfast_CF.mat'
+#HD5_TRAIN = '../../data/breakfast_CF/CF_breakfast_train_all.h5'
+#HD5_VALID = '../../data/breakfast_CF/CF_breakfast_val_all.h5'
+#GT_TAG_FEATS = '../../data/breakfast_CF/gt_tag_feats_breakfast_CF.p'
+#SAVING_PATH =  '../../data/breakfast_CF/breakfast_CF_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../data/breakfast_CF/tag_feats_pred_breakfast_CF.mat'
+
+####FUTURE RC BREAKFAST FEATURES ####
+#HD5_TRAIN = '../../data/breakfast_futureRC/futureRC_breakfast_train_all.h5'
+#HD5_VALID = '../../data/breakfast_futureRC/futureRC_breakfast_val_all.h5'
+#GT_TAG_FEATS = '../../data/breakfast_futureRC/gt_tag_feats_breakfast_futureRC.p'
+#SAVING_PATH =  '../../data/breakfast_futureRC/breakfast_futureRC_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../data/breakfast_futureRC/tag_feats_pred_breakfast_futureRC.mat'
 
 ####CF youcook2 FEATURES ####
 #HD5_TRAIN = '../../../data/youcook2_CF/CF_youcook2_currentSeg_train_all.h5'
@@ -74,11 +81,11 @@ TAG_FEATS_MAT =  '../../../data/breakfast_current/tag_feats_pred_breakfast_curre
 #TAG_FEATS_MAT =  '../../../data/youcook2_CF/tag_feats_pred_youcook2_CF.mat'
 
 ####future youcook2 FEATURES ####
-#HD5_TRAIN = '../../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
-#HD5_VALID = '../../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
-#GT_TAG_FEATS = '../../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
-#SAVING_PATH =  '../../../data/youcook2_future/youcook2_future_tagging_learned_params.npz'
-#TAG_FEATS_MAT =  '../../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
+HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
+HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
+GT_TAG_FEATS = '../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
+SAVING_PATH =  '../../data/youcook2_future/youcook2_future_tagging_learned_params.npz'
+TAG_FEATS_MAT =  '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
 
 SEED = 123  
 np.random.seed(SEED)
@@ -131,8 +138,8 @@ if __name__ == '__main__':
         valid_verb_feats = load_hd5(HD5_VALID_VERB, "verb")
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
     else:
-        img_feats = load_hd5(HD5_TRAIN,"all")
-        img_feats_valid = load_hd5(HD5_VALID, "all")
+        img_feats = load_hd5(HD5_TRAIN,"verb")
+        img_feats_valid = load_hd5(HD5_VALID, "verb")
     
 
 
@@ -307,4 +314,4 @@ if __name__ == '__main__':
 
     logger.info('The code run for {} epochs, with {} sec/epochs'.format(eidx + 1, 
                  (end_time - start_time) / (1. * (eidx + 1))))
-     
+    print "2..Video Tagger trained" 

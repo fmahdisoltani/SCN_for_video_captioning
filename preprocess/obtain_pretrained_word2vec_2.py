@@ -14,26 +14,30 @@ import cPickle
 #CORPUS_P_PATH = '../../../data/epic_CF/corpus_epic_CF.p'
 
 #### CURRENT BREAKFAST FEATURES ####
-DATA_P_PATH = '../../../data/breakfast_current/data_breakfast_current.p'
-CORPUS_P_PATH = '../../../data/breakfast_current/corpus_breakfast_current.p'
+#DATA_P_PATH = '../../data/breakfast_current/data_breakfast_current.p'
+#CORPUS_P_PATH = '../../data/breakfast_current/corpus_breakfast_current.p'
 
 #### FUTURE BREAKFAST FEATURES ####
-#DATA_P_PATH = '../../../data/breakfast_future/data_breakfast_future.p'
-#CORPUS_P_PATH = '../../../data/breakfast_future/corpus_breakfast_future.p'
+DATA_P_PATH = '../../data/breakfast_future/data_breakfast_future.p'
+CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
 
 #### CF BREAKFAST FEATURES ####
-#DATA_P_PATH = '../../../data/breakfast_CF/data_breakfast_CF.p'
-#CORPUS_P_PATH = '../../../data/breakfast_CF/corpus_breakfast_CF.p'
+#DATA_P_PATH = '../../data/breakfast_CF/data_breakfast_CF.p'
+#CORPUS_P_PATH = '../../data/breakfast_CF/corpus_breakfast_CF.p'
+
+#### FUTURE RC BREAKFAST FEATURES ####
+#DATA_P_PATH = '../../data/breakfast_futureRC/data_breakfast_futureRC.p'
+#CORPUS_P_PATH = '../../data/breakfast_futureRC/corpus_breakfast_futureRC.p'
 
 #### CF youcook2 FEATURES ####
-#DATA_P_PATH = '../../../data/youcook2_CF/data_youcook2_CF.p'
-#CORPUS_P_PATH = '../../../data/youcook2_CF/corpus_youcook2_CF.p'
+#DATA_P_PATH = '../../data/youcook2_CF/data_youcook2_CF.p'
+#CORPUS_P_PATH = '../../data/youcook2_CF/corpus_youcook2_CF.p'
 
 #### future youcook2 FEATURES ####
-#DATA_P_PATH = '../../../data/youcook2_future/data_youcook2_future.p'
-#CORPUS_P_PATH = '../../../data/youcook2_future/corpus_youcook2_future.p'
+DATA_P_PATH = '../../data/youcook2_future/data_youcook2_future.p'
+CORPUS_P_PATH = '../../data/youcook2_future/corpus_youcook2_future.p'
 
-GoogleNews_PATH = '../../../data/GoogleNews-vectors-negative300.bin'
+GoogleNews_PATH = '../../data/GoogleNews-vectors-negative300.bin'
 
 def get_W(w2v, word2idx, k=300):
     """
@@ -80,8 +84,8 @@ def add_unknown_words(word_vecs, vocab, k=300):
         if word not in word_vecs:
             word_vecs[word] = np.random.uniform(-0.25,0.25,k)  
  
- 
-if __name__=="__main__":    
+def obtain_pretrained_word2vec(config_obj):
+#if __name__=="__main__":    
     w2v_file = GoogleNews_PATH
      
     x = cPickle.load(open(DATA_P_PATH,"rb"))
@@ -99,4 +103,4 @@ if __name__=="__main__":
     #W2 = get_W(rand_vecs,wordtoix)
      
     cPickle.dump([train, val, test, wordtoix, ixtoword, W], open(CORPUS_P_PATH, "wb"))
-    print "pretrained word vector created!"
+print "2..2..Pretrained word vector created!"

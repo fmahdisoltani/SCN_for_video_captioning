@@ -1,0 +1,13 @@
+paths:
+  caption_train_path: '/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_video_description_train.txt'
+  caption_valid_path: '/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_video_description_val.txt'
+  vocab_path: '/ais/fleet10/farzaneh/scn_captioning/data/epic_current/vocabulary_epic_current.txt'
+  data_p_path: '../../data/youcook2_future/data_youcook2_future.p'
+  references_path: '../../data/youcook2_future/references_youcook2_future.p'
+  corpus_p_path: '../../data/youcook2_future/corpus_youcook2_future.p'
+  google_news_path: '../../data/GoogleNews-vectors-negative300.bin'
+  gt_tag_feats_path: '../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
+
+params:
+
+  num_tags: 300

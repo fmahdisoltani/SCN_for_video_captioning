@@ -19,4 +19,5 @@ class YamlConfig(object):
             output = output[key]
         return output
 
-
+    def set(self, key, value):
+        self.config_dict[key] = value

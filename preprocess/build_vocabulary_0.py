@@ -75,9 +75,12 @@ def step0_build_vocab(config_obj):
             words = line.strip().replace(".","").split(" ")
             for w in words:
                 vocab.add(w)
+    num_tags = 0
     with open(VOCAB_PATH, 'w') as f:
         for item in vocab:
              print >> f, item
+             num_tags  +=1
     print "0..Vocabulary Built"
+    return num_tags
 
 

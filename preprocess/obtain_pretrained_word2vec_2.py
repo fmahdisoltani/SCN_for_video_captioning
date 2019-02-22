@@ -18,8 +18,8 @@ import cPickle
 #CORPUS_P_PATH = '../../data/breakfast_current/corpus_breakfast_current.p'
 
 #### FUTURE BREAKFAST FEATURES ####
-DATA_P_PATH = '../../data/breakfast_future/data_breakfast_future.p'
-CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
+#DATA_P_PATH = '../../data/breakfast_future/data_breakfast_future.p'
+#CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
 
 #### CF BREAKFAST FEATURES ####
 #DATA_P_PATH = '../../data/breakfast_CF/data_breakfast_CF.p'
@@ -34,10 +34,10 @@ CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
 #CORPUS_P_PATH = '../../data/youcook2_CF/corpus_youcook2_CF.p'
 
 #### future youcook2 FEATURES ####
-DATA_P_PATH = '../../data/youcook2_future/data_youcook2_future.p'
-CORPUS_P_PATH = '../../data/youcook2_future/corpus_youcook2_future.p'
+#DATA_P_PATH = '../../data/youcook2_future/data_youcook2_future.p'
+#CORPUS_P_PATH = '../../data/youcook2_future/corpus_youcook2_future.p'
 
-GoogleNews_PATH = '../../data/GoogleNews-vectors-negative300.bin'
+#GoogleNews_PATH = '../../data/GoogleNews-vectors-negative300.bin'
 
 def get_W(w2v, word2idx, k=300):
     """
@@ -84,8 +84,12 @@ def add_unknown_words(word_vecs, vocab, k=300):
         if word not in word_vecs:
             word_vecs[word] = np.random.uniform(-0.25,0.25,k)  
  
-def obtain_pretrained_word2vec(config_obj):
-#if __name__=="__main__":    
+def step2_obtain_pretrained_word2vec(config_obj):
+#if __name__=="__main__":   i
+    DATA_P_PATH = config_obj.get('paths', 'data_p_path')
+    CORPUS_P_PATH = config_obj.get('paths', 'corpus_p_path')
+    GoogleNews_PATH = config_obj.get('paths', 'google_news_path')
+   
     w2v_file = GoogleNews_PATH
      
     x = cPickle.load(open(DATA_P_PATH,"rb"))
@@ -103,4 +107,4 @@ def obtain_pretrained_word2vec(config_obj):
     #W2 = get_W(rand_vecs,wordtoix)
      
     cPickle.dump([train, val, test, wordtoix, ixtoword, W], open(CORPUS_P_PATH, "wb"))
-print "2..2..Pretrained word vector created!"
+    print "2..2..Pretrained word vector created!"

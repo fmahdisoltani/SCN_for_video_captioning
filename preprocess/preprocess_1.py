@@ -191,4 +191,4 @@ def step1_preprocess(config_obj):
             valid_id.append(count+train_count+1)
     ################################################################     
     cPickle.dump([train_ref, valid_ref, test_ref], open(REFERENCES_PATH, "wb"))
-print "1..Preprocessing Done"
+    print "1..Preprocessing Done"

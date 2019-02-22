@@ -15,7 +15,7 @@ from docopt import docopt
 from yaml_config import YamlConfig
 import SCN_training, SCN_decode, SCN_evaluation
 from preprocess.build_vocabulary_0 import step0_build_vocab
-
+from preprocess.preprocess_1 import *
 if __name__ == "__main__":
     # Get argument
     args = docopt(__doc__)
@@ -25,4 +25,5 @@ if __name__ == "__main__":
 
     # Run captioning model
     step0_build_vocab(config_obj)
+    step1_preprocess(config_obj)
 

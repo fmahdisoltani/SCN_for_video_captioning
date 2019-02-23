@@ -20,19 +20,23 @@ import cPickle
 
 #### FUTURE BREAKFAST FEATURES ####
 REFERENCES_PATH = "../../data/breakfast_future/references_breakfast_future.p"
-TEST_RESULTS = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.0002.txt'
+TEST_RESULTS = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_lr.002.txt'
 
 #### CF BREAKFAST FEATURES ####
 #REFERENCES_PATH = "../../data/breakfast_CF/references_breakfast_CF.p"
-#TEST_RESULTS = '../../data/breakfast_CF/breakfast_CF_scn_test_dropout.5_lr.0002.txt'
+#TEST_RESULTS = '../../data/breakfast_CF/breakfast_CF_scn_test_dropout.5_lr.002.txt'
+
+#### futureRC BREAKFAST FEATURES ####
+#REFERENCES_PATH = "../../data/breakfast_futureRC/references_breakfast_futureRC.p"
+#TEST_RESULTS = '../../data/breakfast_futureRC/breakfast_futureRC_scn_test_dropout.5_lr.002.txt'
 
 #### CF youcook2 FEATURES ####
 #REFERENCES_PATH = "../../data/youcook2_CF/references_youcook2_CF.p"
 #TEST_RESULTS = '../../data/youcook2_CF/youcook2_CF_scn_test_dropout.8_lr.002.txt'
 
 #### future youcook2 FEATURES ####
-#REFERENCES_PATH = "../../data/youcook2_future/references_youcook2_future.p"
-#TEST_RESULTS = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt' 
+REFERENCES_PATH = "../../data/youcook2_future/references_youcook2_future.p"
+TEST_RESULTS = '../../data/youcook2_future/youcook2_future_scn_test_dropout.5_lr.0002.txt' 
 
 #### CF EPIC FEATURES ####
 #REFERENCES_PATH = "../../data/epic_CF/references_epic_CF.p"
@@ -44,7 +48,7 @@ TEST_RESULTS = '../../data/breakfast_future/breakfast_future_scn_test_dropout.5_
 
 #### CURRENT EPIC FEATURES ####
 #REFERENCES_PATH = "../../data/epic_current/references_epic_current.p"
-#TEST_RESULTS = '../../data/epic_current/epic_current_scn_test_dropout.5_lr.0002.txt'
+#TEST_RESULTS = '../../data/epic_current/epic_current_scn_test_dropout.5_lr.002.txt'
 
 
 def score(ref, hypo):
@@ -69,8 +73,10 @@ def score(ref, hypo):
             final_scores[method] = score
     return final_scores
 
-if __name__ == '__main__':
-    
+#if __name__ == '__main__':
+def step7_scn_evaluation(config_obj): 
+    REFERENCES_PATH = config_obj.get("paths", "references_path")
+    TEST_RESULTS = config_obj.get("paths", "test_results")
     # this is the generated captions
     hypo = {idx: [lines.strip()] for (idx, lines) in enumerate(open(TEST_RESULTS , 'rb') )}  
     

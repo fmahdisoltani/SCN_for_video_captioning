@@ -21,21 +21,27 @@ import cPickle
 #NUM_TAGS = 1188
 
 #### CURRENT BREAKFAST FEATURES ####
-CORPUS_P_PATH = '../../../data/breakfast_current/corpus_breakfast_current.p'
-REFERENCES_PATH = '../../../data/breakfast_current/references_breakfast_current.p'
-GT_TAG_FEATS_PATH = '../../../data/breakfast_current/gt_tag_feats_breakfast_current.p'
-NUM_TAGS = 47
+#CORPUS_P_PATH = '../../data/breakfast_current/corpus_breakfast_current.p'
+#REFERENCES_PATH = '../../data/breakfast_current/references_breakfast_current.p'
+#GT_TAG_FEATS_PATH = '../../data/breakfast_current/gt_tag_feats_breakfast_current.p'
+#NUM_TAGS = 47
 
 #### FUTURE BREAKFAST FEATURES ####
-#CORPUS_P_PATH = '../../../data/breakfast_future/corpus_breakfast_future.p'
-#REFERENCES_PATH = '../../../data/breakfast_future/references_breakfast_future.p'
-#GT_TAG_FEATS_PATH = '../../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
+#CORPUS_P_PATH = '../../data/breakfast_future/corpus_breakfast_future.p'
+#REFERENCES_PATH = '../../data/breakfast_future/references_breakfast_future.p'
+#GT_TAG_FEATS_PATH = '../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
 #NUM_TAGS = 47
 
 #### CF BREAKFAST FEATURES ####
-#CORPUS_P_PATH = '../../../data/breakfast_CF/corpus_breakfast_CF.p'
-#REFERENCES_PATH = '../../../data/breakfast_CF/references_breakfast_CF.p'
-#GT_TAG_FEATS_PATH = '../../../data/breakfast_CF/gt_tag_feats_breakfast_CF.p'
+#CORPUS_P_PATH = '../../data/breakfast_CF/corpus_breakfast_CF.p'
+#REFERENCES_PATH = '../../data/breakfast_CF/references_breakfast_CF.p'
+#GT_TAG_FEATS_PATH = '../../data/breakfast_CF/gt_tag_feats_breakfast_CF.p'
+#NUM_TAGS = 47
+
+#### FUTURE RC BREAKFAST FEATURES ####
+#CORPUS_P_PATH = '../../data/breakfast_futureRC/corpus_breakfast_futureRC.p'
+#REFERENCES_PATH = '../../data/breakfast_futureRC/references_breakfast_futureRC.p'
+#GT_TAG_FEATS_PATH = '../../data/breakfast_futureRC/gt_tag_feats_breakfast_futureRC.p'
 #NUM_TAGS = 47
 
 #### CF youcook2 FEATURES ####
@@ -45,13 +51,17 @@ NUM_TAGS = 47
 #NUM_TAGS = 300
 
 #### future youcook2 FEATURES ####
-#CORPUS_P_PATH = '../../../data/youcook2_future/corpus_youcook2_future.p'
-#REFERENCES_PATH = '../../../data/youcook2_future/references_youcook2_future.p'
-#GT_TAG_FEATS_PATH = '../../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
+#CORPUS_P_PATH = '../../data/youcook2_future/corpus_youcook2_future.p'
+#REFERENCES_PATH = '../../data/youcook2_future/references_youcook2_future.p'
+#GT_TAG_FEATS_PATH = '../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
 #NUM_TAGS = 1839
 
-if __name__ == "__main__":
-    
+#if __name__ == "__main__":
+def step3_obtain_tags_1(config_obj, NUM_TAGS):
+    CORPUS_P_PATH = config_obj.get('paths', 'corpus_p_path')
+    REFERENCES_PATH = config_obj.get('paths', 'references_path')
+    GT_TAG_FEATS_PATH = config_obj.get('paths', 'gt_tag_feats_path')
+
     x = cPickle.load(open(CORPUS_P_PATH,"rb"))
     train, val, test = x[0], x[1], x[2]
     wordtoix, ixtoword = x[3], x[4]
@@ -120,4 +130,5 @@ if __name__ == "__main__":
                 if w in wordtoix:
                     test_label[i,wordtoix[w]] = 1.
     cPickle.dump([train_label, valid_label, test_label, wordtoix, ixtoword], open(GT_TAG_FEATS_PATH, "wb"))
-    1 / 0        
+
+    print "3..Tags Obtained"

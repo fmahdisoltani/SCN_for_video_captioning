@@ -168,9 +168,9 @@ def calu_negll(f_cost, prepare_data, data, img_feats, tag_feats, iterator):
 
 """ Training the model. """
 
-def train_model(train, valid, test, img_feats, tag_feats, W, n_words=N_WORDS, n_x=300, n_h=512,
+def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=N_WORDS, n_x=300, n_h=512,
     n_f=512, max_epochs=MAX_EPOCH, lrate=LR, batch_size=640, valid_batch_size=64, 
-    dropout_val=DROP_OUT, dispFreq=10, validFreq=200, saveFreq=1000, 
+    dropout_val=-1, dispFreq=10, validFreq=200, saveFreq=1000, 
     saveto = SAVE_TO_PATH):
         
     """ n_words : vocabulary size
@@ -320,8 +320,8 @@ def train_model(train, valid, test, img_feats, tag_feats, W, n_words=N_WORDS, n_
     
     return valid_negll, test_negll
 
-if __name__ == '__main__':
-    
+#if __name__ == '__main__':
+def step5_scn_training(config_obj, num_tags):
     # https://docs.python.org/2/howto/logging-cookbook.html
     logger = logging.getLogger('eval_youtube_scn')
     logger.setLevel(logging.INFO)
@@ -341,6 +341,9 @@ if __name__ == '__main__':
     del x
     n_words = len(ixtoword)
     
+    dropout = config_obj.get("params","dropout")    
+    lr = config_obj.get("params","lr")
+    max_epochs = config_obj.get("params","max_epochs")
     #data = scipy.io.loadmat('./data/youtube2text/c3d_feats.mat')
     #c3d_img_feats = data['feats'].astype(theano.config.floatX)
 
@@ -374,6 +377,6 @@ if __name__ == '__main__':
 
     data = scipy.io.loadmat(TAG_FEATS_PRE_PATH)
     tag_feats = data['feats'].astype(theano.config.floatX)
-    [val_negll, te_negll] = train_model(train, val, test, img_feats, tag_feats, W,
-        n_words=n_words)
+    [val_negll, te_negll] = train_model(logger, train, val, test, img_feats, tag_feats, W,
+                             dropout_val=dropout, max_epochs=max_epochs, lrate=lr, n_words = n_words)
         

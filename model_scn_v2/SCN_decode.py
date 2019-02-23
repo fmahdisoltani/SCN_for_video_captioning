@@ -325,12 +325,12 @@ def generate(z_emb, y_emb, params_set, beam_size, max_step):
     return predset    
 
 #if __name__ == '__main__':
-def step6_SCN_decode(config_obj):    
+def step6_scn_decode(config_obj):    
     REFERENCES_PATH = config_obj.get("paths", "references_path")
     CORPUS_P_PATH =config_obj.get("paths", "corpus_p_path") 
     HD5_TRAIN = config_obj.get("paths", "hd5_train")
-    HD5_VALID = config_obj.get("paths", "hd5_valid_")
-    TAG_FEATS_PRED = config_obj.get("paths", "tag_feats_pred")
+    HD5_VALID = config_obj.get("paths", "hd5_valid")
+    TAG_FEATS_PRED = config_obj.get("paths", "tag_feats_pred_path")
     RESULT_PATH = config_obj.get("paths", "result_path")
     NBEST = config_obj.get("paths", "nbest")
     TEST_RESULT = config_obj.get("paths", "test_result")
@@ -395,8 +395,8 @@ def step6_SCN_decode(config_obj):
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
         #img_feats_valid = valid_noun_feats
     else:
-        img_feats = load_hd5(HD5_TRAIN, "verb")
-        img_feats_valid = load_hd5(HD5_VALID, "verb")
+        img_feats = load_hd5(HD5_TRAIN, "all")
+        img_feats_valid = load_hd5(HD5_VALID, "all")
     data = scipy.io.loadmat(TAG_FEATS_PRED)
     tag_feats = data['feats']
     z = img_feats_valid #img_feats[1300:]

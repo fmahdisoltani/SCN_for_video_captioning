@@ -68,15 +68,15 @@ IS_EPIC=False
 #MAX_EPOCH = 20
 
 #### FUTURE BREAKFAST FEATURES ####
-HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train_all.h5'
-HD5_VALID = '../../data/breakfast_future/future_breakfast_val_all.h5'
-TAG_FEATS_PRE_PATH = '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
-CORPUS_P_PATH = "../../data/breakfast_future/corpus_breakfast_future.p"
-SAVE_TO_PATH = '../../data/breakfast_future/breakfast_future_result_scn_dropout.5_lr.0002_0.npz'
-N_WORDS = 47
-DROP_OUT = 0.5
-LR = 0.0002
-MAX_EPOCH = 20
+#HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train_all.h5'
+#HD5_VALID = '../../data/breakfast_future/future_breakfast_val_all.h5'
+#TAG_FEATS_PRE_PATH = '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
+#CORPUS_P_PATH = "../../data/breakfast_future/corpus_breakfast_future.p"
+#SAVE_TO_PATH = '../../data/breakfast_future/breakfast_future_result_scn_dropout.5_lr.0002_0.npz'
+#N_WORDS = 47
+#DROP_OUT = 0.5
+#LR = 0.0002
+#MAX_EPOCH = 20
 
 #### CF BREAKFAST FEATURES ####
 #HD5_TRAIN = '../../data/breakfast_CF/CF_breakfast_train.h5'
@@ -168,10 +168,10 @@ def calu_negll(f_cost, prepare_data, data, img_feats, tag_feats, iterator):
 
 """ Training the model. """
 
-def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=N_WORDS, n_x=300, n_h=512,
-    n_f=512, max_epochs=MAX_EPOCH, lrate=LR, batch_size=640, valid_batch_size=64, 
+def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=-1, n_x=300, n_h=512,
+    n_f=512, max_epochs=-1, lrate=-1, batch_size=640, valid_batch_size=64, 
     dropout_val=-1, dispFreq=10, validFreq=200, saveFreq=1000, 
-    saveto = SAVE_TO_PATH):
+    saveto = -1):
         
     """ n_words : vocabulary size
         n_x : word embedding dimension
@@ -321,8 +321,17 @@ def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=N_W
     return valid_negll, test_negll
 
 #if __name__ == '__main__':
-def step5_scn_training(config_obj, num_tags):
+def step5_scn_train(config_obj):
     # https://docs.python.org/2/howto/logging-cookbook.html
+    dropout = config_obj.get("params","dropout")
+    lr = config_obj.get("params","lr")
+    max_epochs = config_obj.get("params","max_epochs")
+    CORPUS_P_PATH =config_obj.get("paths", "corpus_p_path")
+    HD5_TRAIN = config_obj.get("paths", "hd5_train")
+    HD5_VALID = config_obj.get("paths", "hd5_valid")
+    TAG_FEATS_PRED = config_obj.get("paths", "tag_feats_pred_path")
+    SAVE_TO_PATH = config_obj.get("paths", "save_to_path")
+
     logger = logging.getLogger('eval_youtube_scn')
     logger.setLevel(logging.INFO)
     fh = logging.FileHandler('eval_youtube_scn.log')
@@ -333,7 +342,7 @@ def step5_scn_training(config_obj, num_tags):
     fh.setFormatter(formatter)
     ch.setFormatter(formatter)
     logger.addHandler(fh)
-    
+        
     x = cPickle.load(open(CORPUS_P_PATH,"rb"))
     train, val, test = x[0], x[1], x[2]
     wordtoix, ixtoword = x[3], x[4]
@@ -341,9 +350,6 @@ def step5_scn_training(config_obj, num_tags):
     del x
     n_words = len(ixtoword)
     
-    dropout = config_obj.get("params","dropout")    
-    lr = config_obj.get("params","lr")
-    max_epochs = config_obj.get("params","max_epochs")
     #data = scipy.io.loadmat('./data/youtube2text/c3d_feats.mat')
     #c3d_img_feats = data['feats'].astype(theano.config.floatX)
 
@@ -375,8 +381,9 @@ def step5_scn_training(config_obj, num_tags):
         img_feats = load_hd5(HD5_TRAIN, "all")
         img_feats_valid = load_hd5(HD5_VALID, "all")
 
-    data = scipy.io.loadmat(TAG_FEATS_PRE_PATH)
+    data = scipy.io.loadmat(TAG_FEATS_PRED)
     tag_feats = data['feats'].astype(theano.config.floatX)
     [val_negll, te_negll] = train_model(logger, train, val, test, img_feats, tag_feats, W,
-                             dropout_val=dropout, max_epochs=max_epochs, lrate=lr, n_words = n_words)
+                             dropout_val=dropout, max_epochs=max_epochs, lrate=lr, n_words = n_words, 
+                            saveto= SAVE_TO_PATH)
         

@@ -74,9 +74,9 @@ def score(ref, hypo):
     return final_scores
 
 #if __name__ == '__main__':
-def step7_scn_evaluation(config_obj): 
+def step7_scn_evaluate(config_obj): 
     REFERENCES_PATH = config_obj.get("paths", "references_path")
-    TEST_RESULTS = config_obj.get("paths", "test_results")
+    TEST_RESULTS = config_obj.get("paths", "test_result")
     # this is the generated captions
     hypo = {idx: [lines.strip()] for (idx, lines) in enumerate(open(TEST_RESULTS , 'rb') )}  
     

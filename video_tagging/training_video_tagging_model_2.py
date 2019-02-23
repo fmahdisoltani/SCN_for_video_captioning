@@ -53,11 +53,11 @@ IS_EPIC = False
 
 
 ####FUTURE BREAKFAST FEATURES ####
-HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train_all.h5'
-HD5_VALID = '../../data/breakfast_future/future_breakfast_val_all.h5'
-GT_TAG_FEATS = '../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
-SAVING_PATH =  '../../data/breakfast_future/breakfast_future_tagging_learned_params.npz'
-TAG_FEATS_MAT =  '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
+#HD5_TRAIN = '../../data/breakfast_future/future_breakfast_train_all.h5'
+#HD5_VALID = '../../data/breakfast_future/future_breakfast_val_all.h5'
+#GT_TAG_FEATS = '../../data/breakfast_future/gt_tag_feats_breakfast_future.p'
+#SAVING_PATH =  '../../data/breakfast_future/breakfast_future_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../data/breakfast_future/tag_feats_pred_breakfast_future.mat'
 
 ####CF BREAKFAST FEATURES ####
 #HD5_TRAIN = '../../data/breakfast_CF/CF_breakfast_train_all.h5'
@@ -81,11 +81,11 @@ TAG_FEATS_MAT =  '../../data/breakfast_future/tag_feats_pred_breakfast_future.ma
 #TAG_FEATS_MAT =  '../../../data/youcook2_CF/tag_feats_pred_youcook2_CF.mat'
 
 ####future youcook2 FEATURES ####
-HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
-HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
-GT_TAG_FEATS = '../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
-SAVING_PATH =  '../../data/youcook2_future/youcook2_future_tagging_learned_params.npz'
-TAG_FEATS_MAT =  '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
+#HD5_TRAIN = '../../data/youcook2_future/future_youcook2_futureSeg_train_verb.h5'
+#HD5_VALID = '../../data/youcook2_future/future_youcook2_futureSeg_val_verb.h5'
+#GT_TAG_FEATS = '../../data/youcook2_future/gt_tag_feats_youcook2_future.p'
+#SAVING_PATH =  '../../data/youcook2_future/youcook2_future_tagging_learned_params.npz'
+#TAG_FEATS_MAT =  '../../data/youcook2_future/tag_feats_pred_youcook2_future.mat'
 
 SEED = 123  
 np.random.seed(SEED)
@@ -95,6 +95,7 @@ def load_hd5(hd5_name, keyword):
     #for epic datasets, keyword is either noun or verb
     with h5py.File(hd5_name,"r") as f:
         for key in f.keys():
+           print("%"*10)
            print(key)
         grid = f[keyword][()] #Convert to numpy
     feats=grid
@@ -115,8 +116,14 @@ def calu_negll(f_cost, data_x, data_y, iterator):
 
 
 """ Training the model. """
-if __name__ == '__main__':
-    
+#if __name__ == '__main__':
+def step4_training_video_tagging_model(config_obj):
+    HD5_TRAIN = config_obj.get('paths', 'hd5_train')
+    HD5_VALID = config_obj.get('paths', 'hd5_valid')
+    GT_TAG_FEATS = config_obj.get('paths', 'gt_tag_feats_path')
+    SAVING_PATH =  config_obj.get('paths', 'saving_path')
+    TAG_FEATS_MAT = config_obj.get('paths', 'tag_feats_mat') 
+
     logger = logging.getLogger('training_video_tagging_log_file')
     logger.setLevel(logging.INFO)
     fh = logging.FileHandler('training_video_tagging_log_file.log')
@@ -138,8 +145,8 @@ if __name__ == '__main__':
         valid_verb_feats = load_hd5(HD5_VALID_VERB, "verb")
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
     else:
-        img_feats = load_hd5(HD5_TRAIN,"verb")
-        img_feats_valid = load_hd5(HD5_VALID, "verb")
+        img_feats = load_hd5(HD5_TRAIN,"all")
+        img_feats_valid = load_hd5(HD5_VALID, "all")
     
 
 

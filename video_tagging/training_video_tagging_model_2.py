@@ -118,13 +118,13 @@ def calu_negll(f_cost, data_x, data_y, iterator):
 """ Training the model. """
 #if __name__ == '__main__':
 def step4_training_video_tagging_model(config_obj):
-    IS_EPIC = config_obj.get('params', 'is_epic')
+#    IS_EPIC = config_obj.get('params', 'is_epic')
     HD5_TRAIN = config_obj.get('paths', 'hd5_train')
     HD5_VALID = config_obj.get('paths', 'hd5_valid')
     GT_TAG_FEATS = config_obj.get('paths', 'gt_tag_feats_path')
     SAVING_PATH =  config_obj.get('paths', 'saving_path')
     TAG_FEATS_MAT = config_obj.get('paths', 'tag_feats_mat') 
-
+    keyword = config_obj.get('params', 'keyword')
     logger = logging.getLogger('training_video_tagging_log_file')
     logger.setLevel(logging.INFO)
     fh = logging.FileHandler('training_video_tagging_log_file.log')
@@ -137,17 +137,17 @@ def step4_training_video_tagging_model(config_obj):
     logger.addHandler(fh)
     
 
-    if not IS_EPIC:
-        train_noun_feats = load_hd5(HD5_TRAIN_NOUN, "noun")
-        train_verb_feats = load_hd5(HD5_TRAIN_VERB, "verb")
-        img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-
-        valid_noun_feats= load_hd5(HD5_VALID_NOUN, "noun")
-        valid_verb_feats = load_hd5(HD5_VALID_VERB, "verb")
-        img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
-    else:
-        img_feats = load_hd5(HD5_TRAIN,"MTC")
-        img_feats_valid = load_hd5(HD5_VALID, "MTC")
+#    if not IS_EPIC:
+#        train_noun_feats = load_hd5(HD5_TRAIN_NOUN, "noun")
+#        train_verb_feats = load_hd5(HD5_TRAIN_VERB, "verb")
+#        img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+#
+#        valid_noun_feats= load_hd5(HD5_VALID_NOUN, "noun")
+#        valid_verb_feats = load_hd5(HD5_VALID_VERB, "verb")
+#        img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
+#    else:
+    img_feats = load_hd5(HD5_TRAIN,keyword)
+    img_feats_valid = load_hd5(HD5_VALID,keyword)
     
 
 

@@ -107,4 +107,4 @@ def step2_obtain_pretrained_word2vec(config_obj):
     #W2 = get_W(rand_vecs,wordtoix)
      
     cPickle.dump([train, val, test, wordtoix, ixtoword, W], open(CORPUS_P_PATH, "wb"))
-    print "2..2..Pretrained word vector created!"
+    print "3..Pretrained word vector created!"

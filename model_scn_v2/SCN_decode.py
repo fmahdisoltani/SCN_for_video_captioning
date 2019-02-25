@@ -395,8 +395,8 @@ def step6_scn_decode(config_obj):
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
         #img_feats_valid = valid_noun_feats
     else:
-        img_feats = load_hd5(HD5_TRAIN, "all")
-        img_feats_valid = load_hd5(HD5_VALID, "all")
+        img_feats = load_hd5(HD5_TRAIN, "MTC")
+        img_feats_valid = load_hd5(HD5_VALID, "MTC")
     data = scipy.io.loadmat(TAG_FEATS_PRED)
     tag_feats = data['feats']
     z = img_feats_valid #img_feats[1300:]

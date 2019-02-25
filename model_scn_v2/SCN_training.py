@@ -188,7 +188,7 @@ def train_model(logger, config_obj, train, valid, test, img_feats, tag_feats, W,
     dropout_val = config_obj.get("params","dropout")
     lrate = config_obj.get("params","lr")
     max_epochs = config_obj.get("params","max_epochs")
-    save_to = config_obj.get("paths", "save_to_path")
+    saveto = config_obj.get("paths", "save_to_path")
     n_x= config_obj.get("params", "n_x")
     n_h= config_obj.get("params", "n_hidden")
     n_f= config_obj.get("params", "n_f")

@@ -80,7 +80,7 @@ def step0_build_vocab(config_obj):
         for item in vocab:
              print >> f, item
              num_tags  +=1
-    print "0..Vocabulary Built"
+    print "1..Vocabulary Built"
     return num_tags
 
 

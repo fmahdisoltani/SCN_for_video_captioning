@@ -1,25 +1,25 @@
 paths:
-  caption_train_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_video_description_train.txt' 
-  caption_valid_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_video_description_val.txt'
-  vocab_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_vocabulary.txt'
-  data_p_path:  '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_data.p'
-  references_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_references.p'
-  corpus_p_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_corpus.p'
+  caption_train_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_video_description_train.txt' 
+  caption_valid_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_video_description_val.txt'
+  vocab_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_vocabulary.txt'
+  data_p_path:  '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_data.p'
+  references_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_references.p'
+  corpus_p_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_corpus.p'
   google_news_path: '/ais/fleet10/farzaneh/scn_captioning/data/GoogleNews-vectors-negative300.bin'
-  gt_tag_feats_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_gt_tag_feats.p' 
+  gt_tag_feats_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_gt_tag_feats.p' 
   
-  hd5_train: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/epicKitchen_train_Cs_MTC.h5'
-  hd5_valid: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/epicKitchen_val_Cs_MTC.h5'
-  saving_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_tagging_learned_params.npz'
-  tag_feats_mat: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_tag_feats_pred.mat'
+  hd5_train: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/epicKitchen_train_Cs_MTC.h5'
+  hd5_valid: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/epicKitchen_val_Cs_MTC.h5'
+  saving_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_tagging_learned_params.npz'
+  tag_feats_mat: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_tag_feats_pred.mat'
 
 
-  tag_feats_pred_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_tag_feats_pred.mat'
-  corpus_p_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_corpus.p'
-  save_to_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_result_scn_dropout.5_lr.002_0.npz'
-  result_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_result_scn_dropout.5_lr.002_'
-  nbest: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl__nbest.p'
-  test_result: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_scn_test_dropout.5_lr.002.txt'
+  tag_feats_pred_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_tag_feats_pred.mat'
+  corpus_p_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_corpus.p'
+  save_to_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_result_scn_dropout.5_lr.002_0.npz'
+  result_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_result_scn_dropout.5_lr.002_'
+  nbest: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl__nbest.p'
+  test_result: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsCl/CsCl_scn_test_dropout.5_lr.002.txt'
 
 params:  
   keyword: "MTC"

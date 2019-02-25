@@ -168,10 +168,8 @@ def calu_negll(f_cost, prepare_data, data, img_feats, tag_feats, iterator):
 
 """ Training the model. """
 
-def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=-1, n_x=300, n_h=512,
-    n_f=512, max_epochs=-1, lrate=-1, batch_size=640, valid_batch_size=64, 
-    dropout_val=-1, dispFreq=10, validFreq=200, saveFreq=1000, 
-    saveto = -1):
+def train_model(logger, config_obj, train, valid, test, img_feats, tag_feats, W,
+                n_words=-1,dispFreq=10, validFreq=200, saveFreq=1000):
         
     """ n_words : vocabulary size
         n_x : word embedding dimension
@@ -187,6 +185,15 @@ def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=-1,
         saveFreq : save results after this number of update.
         saveto : where to save.
     """
+    dropout_val = config_obj.get("params","dropout")
+    lrate = config_obj.get("params","lr")
+    max_epochs = config_obj.get("params","max_epochs")
+    save_to = config_obj.get("paths", "save_to_path")
+    n_x= config_obj.get("params", "n_x")
+    n_h= config_obj.get("params", "n_hidden")
+    n_f= config_obj.get("params", "n_f")
+    batch_size= config_obj.get("params", "batch_size")
+    valid_batch_size= config_obj.get("params", "valid_batch_size")
 
     options = {}
     options['n_words'] = n_words
@@ -204,6 +211,7 @@ def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=-1,
     options['n_z'] = img_feats.shape[1]
     options['n_y'] = tag_feats.shape[1]
     options['SEED'] = SEED
+    
     logger.info('Model options {}'.format(options))
     logger.info('{} train examples'.format(len(train[0])))
     logger.info('{} valid examples'.format(len(valid[0])))
@@ -323,14 +331,15 @@ def train_model(logger, train, valid, test, img_feats, tag_feats, W, n_words=-1,
 #if __name__ == '__main__':
 def step5_scn_train(config_obj):
     # https://docs.python.org/2/howto/logging-cookbook.html
-    dropout = config_obj.get("params","dropout")
-    lr = config_obj.get("params","lr")
-    max_epochs = config_obj.get("params","max_epochs")
+#    dropout = config_obj.get("params","dropout")
+#    lr = config_obj.get("params","lr")
+#    max_epochs = config_obj.get("params","max_epochs")
     CORPUS_P_PATH =config_obj.get("paths", "corpus_p_path")
     HD5_TRAIN = config_obj.get("paths", "hd5_train")
     HD5_VALID = config_obj.get("paths", "hd5_valid")
     TAG_FEATS_PRED = config_obj.get("paths", "tag_feats_pred_path")
-    SAVE_TO_PATH = config_obj.get("paths", "save_to_path")
+  #  SAVE_TO_PATH = config_obj.get("paths", "save_to_path")
+    keyword = config_obj.get("params", "keyword")
 
     logger = logging.getLogger('eval_youtube_scn')
     logger.setLevel(logging.INFO)
@@ -378,12 +387,11 @@ def step5_scn_train(config_obj):
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
         ##img_feats_valid = valid_noun_feats
     else:
-        img_feats = load_hd5(HD5_TRAIN, "all")
-        img_feats_valid = load_hd5(HD5_VALID, "all")
+        img_feats = load_hd5(HD5_TRAIN, keyword)
+        img_feats_valid = load_hd5(HD5_VALID, keyword)
 
     data = scipy.io.loadmat(TAG_FEATS_PRED)
     tag_feats = data['feats'].astype(theano.config.floatX)
-    [val_negll, te_negll] = train_model(logger, train, val, test, img_feats, tag_feats, W,
-                             dropout_val=dropout, max_epochs=max_epochs, lrate=lr, n_words = n_words, 
-                            saveto= SAVE_TO_PATH)
-        
+    [val_negll, te_negll] = train_model(logger, config_obj, train, val, test, 
+                                       img_feats, tag_feats, W,n_words = n_words)
+    print("6..training done")        

@@ -16,7 +16,7 @@ from model_classifier.classifier import init_params, init_tparams, build_model
 from model_classifier.optimizers import Adam
 from model_classifier.utils import get_minibatches_idx, zipp, unzip
 
-IS_EPIC = False
+#IS_EPIC = False
 #### CURRENT EPIC FEATURES ####
 #HD5_TRAIN_NOUN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_noun_train.h5"
 #HD5_VALID_NOUN = "/ais/fleet10/farzaneh/scn_captioning/data/epic_current/current_epic_noun_validation.h5"
@@ -118,6 +118,7 @@ def calu_negll(f_cost, data_x, data_y, iterator):
 """ Training the model. """
 #if __name__ == '__main__':
 def step4_training_video_tagging_model(config_obj):
+    IS_EPIC = config_obj.get('params', 'is_epic')
     HD5_TRAIN = config_obj.get('paths', 'hd5_train')
     HD5_VALID = config_obj.get('paths', 'hd5_valid')
     GT_TAG_FEATS = config_obj.get('paths', 'gt_tag_feats_path')
@@ -136,7 +137,7 @@ def step4_training_video_tagging_model(config_obj):
     logger.addHandler(fh)
     
 
-    if IS_EPIC:
+    if not IS_EPIC:
         train_noun_feats = load_hd5(HD5_TRAIN_NOUN, "noun")
         train_verb_feats = load_hd5(HD5_TRAIN_VERB, "verb")
         img_feats = np.concatenate([train_noun_feats,train_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
@@ -145,8 +146,8 @@ def step4_training_video_tagging_model(config_obj):
         valid_verb_feats = load_hd5(HD5_VALID_VERB, "verb")
         img_feats_valid = np.concatenate([valid_noun_feats,valid_verb_feats], axis=1)   #[train_noun_feats, train_verb_feats]    
     else:
-        img_feats = load_hd5(HD5_TRAIN,"all")
-        img_feats_valid = load_hd5(HD5_VALID, "all")
+        img_feats = load_hd5(HD5_TRAIN,"MTC")
+        img_feats_valid = load_hd5(HD5_VALID, "MTC")
     
 
 
@@ -321,4 +322,4 @@ def step4_training_video_tagging_model(config_obj):
 
     logger.info('The code run for {} epochs, with {} sec/epochs'.format(eidx + 1, 
                  (end_time - start_time) / (1. * (eidx + 1))))
-    print "2..Video Tagger trained" 
+    print "5..Video Tagger trained" 

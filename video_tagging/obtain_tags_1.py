@@ -131,4 +131,4 @@ def step3_obtain_tags_1(config_obj, NUM_TAGS):
                     test_label[i,wordtoix[w]] = 1.
     cPickle.dump([train_label, valid_label, test_label, wordtoix, ixtoword], open(GT_TAG_FEATS_PATH, "wb"))
 
-    print "3..Tags Obtained"
+    print "4..Tags Obtained"

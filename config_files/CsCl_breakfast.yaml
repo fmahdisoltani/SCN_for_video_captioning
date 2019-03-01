@@ -8,8 +8,8 @@ paths:
   google_news_path: '/ais/fleet10/farzaneh/scn_captioning/data/GoogleNews-vectors-negative300.bin'
   gt_tag_feats_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1_breakfast/CsCl/CsCl_gt_tag_feats.p' 
   
-  hd5_train: '/ais/fleet10/farzaneh/scn_captioning/data/exp1_breakfast/CsCl/epicBreakfast_train_Fs_MTC.h5'
-  hd5_valid: '/ais/fleet10/farzaneh/scn_captioning/data/exp1_breakfast/CsCl/epicBreakfast_train_Fs_MTC.h5'
+  hd5_train: '/ais/fleet10/farzaneh/scn_captioning/data/exp1_breakfast/CsCl/epicBreakfast_train_Cs_MTC.h5'
+  hd5_valid: '/ais/fleet10/farzaneh/scn_captioning/data/exp1_breakfast/CsCl/epicBreakfast_train_Cs_MTC.h5'
   saving_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1_breakfast/CsCl/CsCl_tagging_learned_params.npz'
   tag_feats_mat: '/ais/fleet10/farzaneh/scn_captioning/data/exp1_breakfast/CsCl/CsCl_tag_feats_pred.mat'
 

@@ -29,6 +29,6 @@ params:
   n_x: 300
   n_hidden: 512
   n_f: 512
-  batch_size: 640
+  batch_size: 64
   valid_batch_size: 64
    

@@ -16,15 +16,15 @@ paths:
 
   tag_feats_pred_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/CsFl_tag_feats_pred.mat'
   corpus_p_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_corpus.p'
-  save_to_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_result_scn_dropout.5_lr.002_0.npz'
-  result_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_result_scn_dropout.5_lr.002_'
+  save_to_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_result_scn_dropout.7_lr.0002_0.npz'
+  result_path: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_result_scn_dropout.7_lr.0002_'
   nbest: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl__nbest.p'
-  test_result: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_scn_test_dropout.5_lr.002.txt'
+  test_result: '/ais/fleet10/farzaneh/scn_captioning/data/exp1/CsFl/Csfl_scn_test_dropout.7_lr.0002.txt'
 
 params:  
   keyword: "MTC"
-  dropout: 0.5
-  lr: 0.002
+  dropout: 0.7
+  lr: 0.0002
   max_epochs: 20
   n_x: 300
   n_hidden: 512
